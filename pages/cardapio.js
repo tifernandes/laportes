@@ -5,16 +5,35 @@ import { Badge } from 'antd';
 import Carrinho from "../components/Carrinho";
 import { useEffect, useState } from 'react';
 import { Button } from 'antd';
+import mockData from './api/cardapioAPI'
 
-export const getStaticProps = async () => {
-    const res = await axios.get('http://localhost:3000/api/cardapio');
+// export const getStaticProps = async () => {
+//     const res = await axios.get('http://localhost:3000/api/cardapioAPI');
 
-    return { 
-        props: { payload: res.data }
-    }
-}
+//     return { 
+//         props: { payload: res.data }
+//     }
+// }
 
-const Cardapio = ({ payload }) => {
+const Cardapio = (/*{ payload }*/) => {
+
+    const payload = [
+        {
+          id: 1,
+          nome: 'Trança doce de mandioquinha',
+          valor: 30,
+          descricao: 'Supermacia e com recheio de creme de baunilha e casquinha de açúcar no topo',
+          categoria: 'Pães'
+        },
+        {
+          id: 2,
+          nome: 'Cinnamon Roll',
+          valor: 9,
+          descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+          categoria: 'Pães'
+        }
+    ]
+
     const [visible, setVisible] = useState(false);
     const [cart, setCart] = useState([]);
     const [cartItems, setCartItems] = useState([]);
