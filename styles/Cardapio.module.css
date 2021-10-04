@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600&display=swap');
+
+.container {
+    max-width: 1300px;
+    margin: 50px auto;
+    height: auto;
+    font-family: 'Urbanist', sans-serif;
+}
+
+.carrinho {
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:40px;
+    right:40px;
+    background-color:rgba(52, 15, 64, 0.869792);
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+    z-index:100;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carrinhoIcon {
+    color: white !important;
+    font-size: 40px !important;
+}
+
+.produtos {
+    padding: 40px;
+}
+
+.produto {
+    padding: 20px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid #04AA6D;
+    margin: 0 0 20px 0;
+}
+
+.produto:hover {
+    background-color: #f5e7d8;
+    border-left: 3px solid green;
+}
+
+.info {
+    max-width: 500px;
+}
+
+.info h1{
+    margin: 0;
+}
+
+.info p {
+    color: rgb(127, 143, 159);
+}
+
+.actions {
+    display: flex;
+    gap: 25px;
+}
+
+.buttonRemove {
+    background: #ff4d4f !important;
+    border-color: red !important;
+}
+
+.buttonRemove:hover {
+    background: #eb4649 !important;
+}
+
+.buttonAdd {
+    background: #04AA6D !important;
+    border-color: green !important;
+}
+
+.buttonAdd:hover {
+    background: #039660 !important;
+}

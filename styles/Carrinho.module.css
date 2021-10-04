@@ -1,0 +1,23 @@
+.vazio {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.vazio span {
+    font-size: 30px;
+}
+
+.produto {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    border-bottom: 2px solid rgb(167, 168, 167, 0.4);
+}
+
+.nomeProduto {
+    width: 60%;
+}

@@ -1,0 +1,106 @@
+
+.container h3{
+    font-size: 40px;
+    margin: 0;
+}
+
+.container h1 {
+    font-family: 'Paytone One', sans-serif;
+    font-size: 50px;
+    margin: 0;
+    color: #320D3E;
+}
+
+.container button {
+    font-family: 'Paytone One', sans-serif;
+    color: white;
+    border: none;
+    font-size: 20px;
+    width: 150px;
+    height: 44px;
+    background: #EAAB51;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.container button:hover {
+    transition: 0.3s ease;
+    background: #ca9346;
+}
+
+.cardapio {
+    padding: 100px 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+    text-align: center;
+
+    @apply lg:flex lg:flex-col lg:gap-5;
+}
+
+.cardapio,
+.historia,
+.unidades {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.historia {
+    text-align: center;
+    padding: 80px 0;
+    color: black;
+}
+
+.historia p {
+    font-weight: 200;
+    font-size: 18px;
+    font-family: sans-serif;
+}
+
+.historia h3{
+    color: #FFF1E1;
+}
+
+.divisor {
+    width: 50%;
+    height: 100px;
+    margin: -40px auto 0 auto;
+    background: url(/divisor2.png) center center no-repeat;
+    background-size: contain;
+
+    @apply lg:w-11/12
+}
+
+.fullLayout {
+    width: 100%;
+    background: linear-gradient(180deg, #EAAB51 0%, #c07e20 100%);
+}
+
+.unidades {
+    text-align: center;
+}
+
+.unidade {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    text-align: right;
+    padding: 45px 0;
+
+    @apply lg:flex lg:flex-col lg:gap-5 lg:text-center;
+}
+
+.endereco {
+    width: 388px;
+}
+
+.endereco h2 {
+    border-bottom: 1px solid black;
+}
+
+.endereco p {
+    margin: 0;
+}
