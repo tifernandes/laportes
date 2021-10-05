@@ -7,32 +7,24 @@ import { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import mockData from './api/cardapioAPI'
 
-// export const getStaticProps = async () => {
-//     const res = await axios.get('http://localhost:3000/api/cardapioAPI');
+const Cardapio = ({ payload }) => {
 
-//     return { 
-//         props: { payload: res.data }
-//     }
-// }
-
-const Cardapio = (/*{ payload }*/) => {
-
-    const payload = [
-        {
-          id: 1,
-          nome: 'Trança doce de mandioquinha',
-          valor: 30,
-          descricao: 'Supermacia e com recheio de creme de baunilha e casquinha de açúcar no topo',
-          categoria: 'Pães'
-        },
-        {
-          id: 2,
-          nome: 'Cinnamon Roll',
-          valor: 9,
-          descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-          categoria: 'Pães'
-        }
-    ]
+    // const payload = [
+    //     {
+    //       id: 1,
+    //       nome: 'Trança doce de mandioquinha',
+    //       valor: 30,
+    //       descricao: 'Supermacia e com recheio de creme de baunilha e casquinha de açúcar no topo',
+    //       categoria: 'Pães'
+    //     },
+    //     {
+    //       id: 2,
+    //       nome: 'Cinnamon Roll',
+    //       valor: 9,
+    //       descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+    //       categoria: 'Pães'
+    //     }
+    // ]
 
     const [visible, setVisible] = useState(false);
     const [cart, setCart] = useState([]);
@@ -108,3 +100,13 @@ const Cardapio = (/*{ payload }*/) => {
 }
  
 export default Cardapio;
+
+export const getServerSideProps = async () => {
+    const res = await axios.get('http://localhost:3000/api/cardapioAPI');
+
+    return { 
+        props: { 
+            payload: res.data 
+        }
+    }
+}
