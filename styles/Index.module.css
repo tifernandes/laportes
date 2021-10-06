@@ -8,7 +8,8 @@
     font-family: 'Paytone One', sans-serif;
     font-size: 50px;
     margin: 0;
-    color: #320D3E;
+    color: #EAAB51;
+    text-shadow: 2px 2px black;
 }
 
 .container button {
@@ -37,6 +38,17 @@
     text-align: center;
 
     @apply lg:flex lg:flex-col lg:gap-5;
+}
+
+.cardapio h3,
+.cardapio h2 {
+    text-shadow: 1px 2px black;
+}
+
+.cardapioContainer {
+    width: 100%;
+    background: url(/bgCardapio.jpg) center center no-repeat;
+    background-size: cover;
 }
 
 .cardapio,
@@ -103,4 +115,9 @@
 
 .endereco p {
     margin: 0;
+}
+
+.imgShadow {
+    -webkit-box-shadow: 12px 12px 3px 2px #000000;
+    box-shadow: 12px 12px 3px 2px #000000;
 }

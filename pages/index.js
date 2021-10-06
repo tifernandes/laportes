@@ -13,17 +13,21 @@ const Index = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             {/* <Slide /> */}
-            <div className={styles.cardapio}>
-                <div>
-                    <h3>A arte da boa cozinha.</h3>
-                    <h1 className="lg:text-9xl">Conheça nosso <br /> cardápio</h1>
-                    <h2>E Retire seu pedido</h2>
-                    <Link href="/cardapio">
-                        <button>ACESSAR</button>
-                    </Link>
-                </div>
-                <div className="lg:hidden">
-                    <Image src="/know-our-menu.png" width={516} height={387} />
+            <div className={styles.cardapioContainer}>
+                <div className={styles.cardapio}>
+                    <div>
+                        <h3 className="text-white">A arte da boa cozinha.</h3>
+                        <h1 className="lg:text-9xl">Conheça nosso <br /> cardápio</h1>
+                        <h2 className="text-white text-xl">E Retire seu pedido</h2>
+                        <Link href="/cardapio">
+                            <button>ACESSAR</button>
+                        </Link>
+                    </div>
+                    <div className={styles.imgShadow}>
+                        <div className="lg:hidden">
+                            <Image src="/know-our-menu.png" width={516} height={387} />
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className={styles.fullLayout}>
@@ -74,6 +78,7 @@ const Index = () => {
                         <p>das 11:30h às 15h</p>
                         <p>11 4226.7607</p>
                     </div>
+                    <div className={styles.imgShadow}></div>
                     <Image src="/laportes_scs.jpg" width={380} height={280} />
                     <iframe
                     src="https://maps.google.com/maps?q=Rua%20Pernambuco,%20400%20-%20Centro&t=&z=13&ie=UTF8&iwloc=&output=embed"
