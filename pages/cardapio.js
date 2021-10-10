@@ -6,6 +6,9 @@ import Carrinho from "../components/Carrinho";
 import { useEffect, useState } from 'react';
 import { Button } from 'antd';
 import mockData from './api/cardapioAPI'
+import { Select } from 'antd';
+
+const { Option } = Select;
 
 const Cardapio = ({ payload }) => {
 
@@ -39,7 +42,15 @@ const Cardapio = ({ payload }) => {
     const carrinhoShow = () => {
         if(!visible){
 
-            var filterCart = payload.filter(function(e) {
+            var allProducts = [];
+
+            payload[0].map((categoria, x) => {
+                categoria.values.map((item, i) => {
+                    allProducts.push(item)
+                })
+            });
+
+            var filterCart = allProducts.filter(function(e) {
                 return cart.indexOf((e.id).toString()) !== -1;
             });
 
@@ -72,25 +83,40 @@ const Cardapio = ({ payload }) => {
             </Badge>
         </div>
         <div className={styles.container}>
-            <h1>Cardápio</h1>
+            <div className="flex justify-between pl-10 pr-10">
+                <h3 className="text-4xl">Cardápio</h3>
+                <Select defaultValue="Selecione um tipo de produto..." style={{ width: 120 }}>
+                    {payload[0].map((categoria, x) => {
+                        return (
+                            <Option value={categoria.key}>{categoria.key}</Option>
+                        )
+                    })}
+                </Select>
+            </div>
             <div className={styles.produtos}>
-                {/* <h1>{categoria}</h1> */}
-                {payload.map((item, i) => {
+                {payload[0].map((categoria, x) => {
                     return (
-                        <div key={i} className={styles.produto}>
-                            <div className={styles.info}>
-                                <h1>{item.nome}</h1>
-                                <p>{item.descricao}</p>
-                                <h2>R$ {item.valor}</h2>
-                            </div>
-                            <div className={styles.actions}>
-                                {cart.includes((item.id).toString()) ? 
-                                    <Button className={styles.buttonRemove} onClick={() => handleCarrinho((item.id).toString())} type="primary">REMOVER</Button>
-                                    :
-                                    <Button className={styles.buttonAdd} onClick={() => handleCarrinho((item.id).toString())} type="primary">ADICIONAR</Button> 
-                                }
-                            </div>
-                        </div>
+                        <>
+                            <h1>{categoria.key}</h1>
+                            {categoria.values.map((item, i) => {
+                                return (
+                                    <div key={i} className={styles.produto}>
+                                        <div className={styles.info}>
+                                            <h1>{item.nome}</h1>
+                                            <p>{item.descricao}</p>
+                                            <h2>R$ {item.valor}</h2>
+                                        </div>
+                                        <div className={styles.actions}>
+                                            {cart.includes((item.id).toString()) ? 
+                                                <Button className={styles.buttonRemove} onClick={() => handleCarrinho((item.id).toString())} type="primary">REMOVER</Button>
+                                                :
+                                                <Button className={styles.buttonAdd} onClick={() => handleCarrinho((item.id).toString())} type="primary">ADICIONAR</Button> 
+                                            }
+                                        </div>
+                                    </div>
+                                )
+                        })}
+                        </>
                     )
                 })}
             </div>

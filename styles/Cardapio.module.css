@@ -40,6 +40,8 @@
     align-items: center;
     border-left: 3px solid #04AA6D;
     margin: 0 0 20px 0;
+
+    @apply lg:flex-col lg:gap-5 lg:items-start
 }
 
 .produto:hover {

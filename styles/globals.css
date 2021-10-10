@@ -59,6 +59,11 @@ p, a, h1, h2 {
 
 
 /* Padrão do ant */
+.ant-badge {
+  line-height: 0 !important;
+}
+
+
 .ant-layout {
   min-height: 100vh;
 }
