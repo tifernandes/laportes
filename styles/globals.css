@@ -43,3 +43,81 @@ h3 {
 p, a, h1, h2 {
   font-family: 'Urbanist', sans-serif;
 } 
+
+.headerMenuCenter{
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0px 24px 0px 24px;
+}
+
+.buttonsLeftHeader {
+  display: flex;
+  align-items: center;
+}
+
+
+
+/* Padrão do ant */
+.ant-layout {
+  min-height: 100vh;
+}
+
+.ant-layout-sider {
+  box-shadow: 2px 0 6px rgba(0,21,41,.35);
+}
+
+.logo {
+height: 40px;
+margin: 16px;
+}
+
+.logoResponsive {
+  height: 40px;
+  margin-left: 10px;
+}
+
+.site-layout-sub-header-background {
+background: #fff;
+}
+
+.site-layout-background {
+background: #fff;
+}
+[data-theme="dark"] .site-layout-sub-header-background {
+  background: #141414;
+}
+
+#components-layout-demo-custom-trigger .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+#components-layout-demo-custom-trigger .trigger:hover {
+  color: #1890ff;
+}
+
+#components-layout-demo-custom-trigger .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.site-layout .site-layout-background {
+  background: #fff;
+}
+
+.trigger {
+  padding: 0 24px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all .3s,padding 0s;
+}
+
+.ant-menu {
+  padding: 16px 0px;
+  width: 100%;
+}
