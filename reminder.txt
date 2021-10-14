@@ -1,4 +1,5 @@
 Integração email locaweb
 pop up
 navbar flutuante
-slider
+observação no pedido
+accept cookies

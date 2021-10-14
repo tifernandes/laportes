@@ -5,9 +5,6 @@ import LayoutAdmin from '../components/admin/LayoutAdmin'
 
 function MyApp({ Component, pageProps, router }){
 
-  console.log(pageProps);
-  console.log(router.pathname);
-
   if (router.pathname.includes('/admin')) {
     return (
       <LayoutAdmin>

@@ -73,6 +73,41 @@ export default function (req, res) {
       valor: 9,
       descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
       categoria: 'Doces'
+    },
+    {
+      id: 11,
+      nome: 'Cinnamon Roll',
+      valor: 9,
+      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+      categoria: 'Pizza'
+    },
+    {
+      id: 12,
+      nome: 'Cinnamon Roll',
+      valor: 9,
+      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+      categoria: 'Pizza'
+    },
+    {
+      id: 13,
+      nome: 'Cinnamon Roll',
+      valor: 9.50,
+      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+      categoria: 'Pizza'
+    },
+    {
+      id: 14,
+      nome: 'Cinnamon Roll',
+      valor: 9,
+      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+      categoria: 'Pizza'
+    },
+    {
+      id: 15,
+      nome: 'Cinnamon Roll',
+      valor: 9,
+      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
+      categoria: 'Pizza'
     }
   ]
 

@@ -75,6 +75,18 @@ const LayoutAdmin = ({ children }) => {
                             <a>Produtos</a>
                         </Link>
                     </Menu.Item>
+
+                    <Menu.Item key="/admin/pedidos" icon={<BarChartOutlined />}> 
+                        <Link href="/admin/pedidos">
+                            <a>Pedidos</a>
+                        </Link>
+                    </Menu.Item>
+
+                    <Menu.Item key="/admin/clientes" icon={<BarChartOutlined />}> 
+                        <Link href="/admin/clientes">
+                            <a>Clientes</a>
+                        </Link>
+                    </Menu.Item>
                 </Menu>
             </>
         )

@@ -1,42 +1,22 @@
 import axios from "axios";
 import styles from '../styles/Cardapio.module.css'
 import { ShoppingCartOutlined } from '@ant-design/icons';
-import { Badge } from 'antd';
 import Carrinho from "../components/Carrinho";
 import { useEffect, useState } from 'react';
-import { Button } from 'antd';
-import mockData from './api/cardapioAPI'
-import { Select } from 'antd';
+import { Button, Select,Badge } from 'antd';
 
 const { Option } = Select;
 
 const Cardapio = ({ payload }) => {
-
-    // const payload = [
-    //     {
-    //       id: 1,
-    //       nome: 'Trança doce de mandioquinha',
-    //       valor: 30,
-    //       descricao: 'Supermacia e com recheio de creme de baunilha e casquinha de açúcar no topo',
-    //       categoria: 'Pães'
-    //     },
-    //     {
-    //       id: 2,
-    //       nome: 'Cinnamon Roll',
-    //       valor: 9,
-    //       descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-    //       categoria: 'Pães'
-    //     }
-    // ]
 
     const [visible, setVisible] = useState(false);
     const [cart, setCart] = useState([]);
     const [cartItems, setCartItems] = useState([]);
 
     useEffect(() => {
-        var prdcrtSt = localStorage.getItem('prdcrtLaportes');
-        prdcrtSt = prdcrtSt ? prdcrtSt.split(',') : [];
-        setCart(prdcrtSt)
+        var carrinho = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
+
+        setCart(carrinho)
     }, [])
 
     const carrinhoShow = () => {
@@ -51,7 +31,7 @@ const Cardapio = ({ payload }) => {
             });
 
             var filterCart = allProducts.filter(function(e) {
-                return cart.indexOf((e.id).toString()) !== -1;
+                return cart.findIndex(x => x.id == e.id) !== -1
             });
 
             setCartItems(filterCart);
@@ -61,17 +41,23 @@ const Cardapio = ({ payload }) => {
     };
 
     const handleCarrinho = (prdID) => {
-        var prdcrtSt = localStorage.getItem('prdcrtLaportes');
-        prdcrtSt = prdcrtSt ? prdcrtSt.split(',') : [];
+        var carrinho = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
 
-        if(cart.includes(prdID)){
-            prdcrtSt = cart.filter(item => item !== prdID);
+        //verifica se existe algo no carrinho
+        if(carrinho.length > 0){
+            const prd = carrinho.findIndex(x => x.id == prdID);
+            //verifica se ja existe o item no carrinho
+            if(prd > -1){
+                carrinho.splice(prd, 1);
+            }else{
+                carrinho.push({"id": parseInt(prdID), "qt": 1});
+            }
         }else{
-            prdcrtSt.push(prdID);
+            carrinho.push({"id": parseInt(prdID), "qt": 1});
         }
-
-        localStorage.setItem("prdcrtLaportes", prdcrtSt.toString())
-        setCart(prdcrtSt)
+        
+        localStorage.setItem('prdcrtLaportes', JSON.stringify(carrinho));
+        setCart(carrinho)
     }
 
     return ( 
@@ -88,7 +74,7 @@ const Cardapio = ({ payload }) => {
                 <Select defaultValue="Selecione um tipo de produto..." style={{ width: 120 }}>
                     {payload[0].map((categoria, x) => {
                         return (
-                            <Option value={categoria.key}>{categoria.key}</Option>
+                            <Option key={x} value={categoria.key}>{categoria.key}</Option>
                         )
                     })}
                 </Select>
@@ -107,7 +93,7 @@ const Cardapio = ({ payload }) => {
                                             <h2>R$ {item.valor}</h2>
                                         </div>
                                         <div className={styles.actions}>
-                                            {cart.includes((item.id).toString()) ? 
+                                            {cart.findIndex(x => x.id == item.id) > -1 ? 
                                                 <Button className={styles.buttonRemove} onClick={() => handleCarrinho((item.id).toString())} type="primary">REMOVER</Button>
                                                 :
                                                 <Button className={styles.buttonAdd} onClick={() => handleCarrinho((item.id).toString())} type="primary">ADICIONAR</Button> 
@@ -128,7 +114,8 @@ const Cardapio = ({ payload }) => {
 export default Cardapio;
 
 export const getServerSideProps = async () => {
-    const res = await axios.get('http://localhost:3000/api/cardapioAPI');
+    const endPoint = process.env.WEBSITE || 'https://laportes.vercel.app';
+    const res = await axios.get(`${endPoint}/api/cardapioAPI`);
 
     return { 
         props: { 
