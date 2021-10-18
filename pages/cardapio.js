@@ -1,9 +1,10 @@
 import axios from "axios";
 import styles from '../styles/Cardapio.module.css'
-import { ShoppingCartOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
 import Carrinho from "../components/Carrinho";
 import { useEffect, useState } from 'react';
-import { Button, Select,Badge } from 'antd';
+import { Select,Badge } from 'antd';
+import jump from 'jump.js'
 
 const { Option } = Select;
 
@@ -60,9 +61,18 @@ const Cardapio = ({ payload }) => {
         setCart(carrinho)
     }
 
+    const handleSelect = (value) => {
+        console.log(`selected ${value}`);
+
+        jump(`#${value}`, {
+            duration: 500,
+        })
+    }
+
     return ( 
         <>
         <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
+        <div className={styles.navbar}></div>
         <div onClick={carrinhoShow} className={styles.carrinho}>
             <Badge className={styles.carrinhoIcon} count={cart ? cart.length : 0}>
                 <ShoppingCartOutlined />
@@ -70,8 +80,7 @@ const Cardapio = ({ payload }) => {
         </div>
         <div className={styles.container}>
             <div className="flex justify-between pl-10 pr-10">
-                <h3 className="text-4xl">Cardápio</h3>
-                <Select defaultValue="Selecione um tipo de produto..." style={{ width: 120 }}>
+                <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
                     {payload[0].map((categoria, x) => {
                         return (
                             <Option key={x} value={categoria.key}>{categoria.key}</Option>
@@ -82,27 +91,27 @@ const Cardapio = ({ payload }) => {
             <div className={styles.produtos}>
                 {payload[0].map((categoria, x) => {
                     return (
-                        <>
-                            <h1>{categoria.key}</h1>
+                        <div key={x} id={categoria.key} className={styles.categoria}>
+                            <h1 className={styles.categoriaTitle}><span>{categoria.key}</span></h1>
                             {categoria.values.map((item, i) => {
                                 return (
                                     <div key={i} className={styles.produto}>
                                         <div className={styles.info}>
-                                            <h1>{item.nome}</h1>
-                                            <p>{item.descricao}</p>
+                                            <h1 className="text-xl">{item.nome}</h1>
+                                            <p className="text-md">{item.descricao}</p>
                                             <h2>R$ {item.valor}</h2>
                                         </div>
                                         <div className={styles.actions}>
                                             {cart.findIndex(x => x.id == item.id) > -1 ? 
-                                                <Button className={styles.buttonRemove} onClick={() => handleCarrinho((item.id).toString())} type="primary">REMOVER</Button>
+                                                <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
                                                 :
-                                                <Button className={styles.buttonAdd} onClick={() => handleCarrinho((item.id).toString())} type="primary">ADICIONAR</Button> 
+                                                <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
                                             }
                                         </div>
                                     </div>
                                 )
-                        })}
-                        </>
+                            })}
+                        </div>
                     )
                 })}
             </div>

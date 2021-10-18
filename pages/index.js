@@ -31,7 +31,7 @@ const Index = () => {
                 </div>
             </div>
             <div className={styles.fullLayout}>
-                <div className={styles.historia}>
+                <div id="historia" className={styles.historia}>
                     <h3>A tradição dos sabores</h3>
                     <div className={styles.divisor}></div>
                     <div className="hidden lg:block">
@@ -50,7 +50,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <div className={styles.unidades}>
+            <div id="unidades" className={styles.unidades}>
                 <div className={styles.unidade}>
                     <div className={styles.endereco}>
                         <h3>Unidade Santo André</h3>

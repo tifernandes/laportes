@@ -1,10 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@600&display=swap');
 
+
+.navbar {
+    width: 100%;
+    background-color: red;
+    height: 240px;
+    background: url(/bgCardapio.jpg) no-repeat;
+    background-size: cover;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+
+    @apply lg:h-36
+}
+
 .container {
     max-width: 1300px;
-    margin: 50px auto;
+    margin: 0 auto;
     height: auto;
     font-family: 'Urbanist', sans-serif;
+    margin-top: 30px;
 }
 
 .carrinho {
@@ -28,17 +42,18 @@
     color: white !important;
     font-size: 40px !important;
 }
-
+/* 
 .produtos {
     padding: 40px;
-}
+} */
 
 .produto {
     padding: 20px 7%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-left: 3px solid #EAAB51;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    /* border-left: 3px solid #EAAB51; */
     margin: 0 0 20px 0;
 
     @apply lg:flex-col lg:gap-5 lg:items-start
@@ -46,7 +61,6 @@
 
 .produto:hover {
     background-color: #f5e7d8;
-    border-left: 3px solid #c07e20;
 }
 
 .info {
@@ -64,22 +78,45 @@
 .actions {
     display: flex;
     gap: 25px;
+    font-size: 1rem;
 }
 
-.buttonRemove {
-    background: #ff4d4f !important;
-    border-color: red !important;
+.categoria {
+    padding: 10px 0;
 }
 
-.buttonRemove:hover {
-    background: #eb4649 !important;
+.categoriaTitle {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 2px solid #c07e20;
+    line-height: 0.1rem !important;
+    margin: 60px 0 50px 0; 
+
+    @apply text-4xl
 }
 
-.buttonAdd {
-    background: #04AA6D !important;
-    border-color: green !important;
+.categoriaTitle span { 
+    background:#FFF1E1; 
+    padding:0 10px; 
 }
 
-.buttonAdd:hover {
-    background: #039660 !important;
+.buttonCartadd {
+    color: #3a2509;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid #c07e20;
+    padding: 10px 30px;
+    transition: all 0.5s ease-out;
+}
+
+.buttonCartremove {
+    background-color: #c07e20;
+    color: white;
+    padding: 10px 30px;
+    transition: all 0.5s ease-in;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border: 2px solid #c07e20;
 }
