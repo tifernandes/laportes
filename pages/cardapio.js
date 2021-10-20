@@ -81,9 +81,8 @@ const Cardapio = ({ payload }) => {
         scrolled ? setCategoriaFixed(true) : setCategoriaFixed(false)
     };
 
-    const removeScroll = () => {
-        window.scrollTo(0, 0);
-        document.body.scrollTop = 0;
+    const removeScroll = (e) => {
+        e.preventDefault();
     }
     
     useEffect(() => {
@@ -92,7 +91,7 @@ const Cardapio = ({ payload }) => {
 
     const CategoriaCmp = () => {
         return (
-            <Select onChange={handleSelect} onFocus={removeScroll} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            <Select onChange={handleSelect} onFocus={e => removeScroll(e)} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
                 {payload[0].map((categoria, x) => {
                     return (
                         <Option key={x} value={categoria.key}>{categoria.key}</Option>
