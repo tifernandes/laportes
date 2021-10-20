@@ -51,7 +51,7 @@
 
 .cardapioContainer {
     width: 100%;
-    padding: 250px 0px 180px 0px;
+    padding: 180px 0px 180px 0px;
     background: url(/bgCardapio.jpg) center center no-repeat;
     background-size: cover;
     display: flex;
@@ -69,17 +69,19 @@
 .historia {
     text-align: center;
     padding: 80px 0;
-    color: black;
+    color: white;
 }
 
 .historia p {
     font-weight: 200;
     font-size: 18px;
     font-family: sans-serif;
+    text-shadow: 1px 1px black;
 }
 
 .historia h3{
-    color: #FFF1E1;
+    text-shadow: 1px 1px black;
+    color: white;
 }
 
 .divisor {

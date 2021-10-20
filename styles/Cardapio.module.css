@@ -121,12 +121,18 @@
     border: 2px solid #c07e20;
 }
 
-.categoriaFixed {
+.categoriaContainerFixed {
+    width: 100%;
     position: fixed;
+    padding: 7px 0;
     top: 100px;
+    background: rgba(0, 0, 0, 0.9);
+}
+
+.categoriaFixed {
     width: 1300px;
-    left: 50%;
-    transform: translateX(-50%);
+    padding: 0 5px;
+    margin: 0 auto;
     z-index: 100;
 
     @apply lg:w-full

@@ -106,8 +106,10 @@ const Cardapio = ({ payload }) => {
         </Head>
         <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
         {categoriaFixed ?
-            <div className={styles.categoriaFixed}>
-                <CategoriaCmp /> 
+            <div className={styles.categoriaContainerFixed}>
+                <div className={styles.categoriaFixed}>
+                    <CategoriaCmp /> 
+                </div>
             </div>
         : 
             <></>
@@ -120,7 +122,9 @@ const Cardapio = ({ payload }) => {
         </div>
         <div className={styles.container}>
             {!categoriaFixed ?
+                <div className="pl-4 pr-4">
                 <CategoriaCmp /> 
+                </div>
             :
                 <></>
             }

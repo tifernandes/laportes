@@ -13,7 +13,6 @@ const Index = () => {
                 <link rel="icon" href="/favicon.ico" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
             </Head>
-            {/* <Slide /> */}
             <div className={styles.cardapioContainer}>
                 <div className={styles.cardapio}>
                     <div>
@@ -26,7 +25,7 @@ const Index = () => {
                     </div>
                     <div className={styles.imgShadow}>
                         <div className="lg:hidden">
-                            <Image src="/know-our-menu.png" width={516} height={387} />
+                            <Slide />
                         </div>
                     </div>
                 </div>
@@ -57,7 +56,8 @@ const Index = () => {
                         <h3>Unidade Santo André</h3>
                         <p>Rua Vitória Régia, 1419 - Campestre</p>
                         <p>das 11:30h às 15h</p>
-                        <p>11 4991.8466</p>
+                        <p>(11) 4991-8466</p>
+                        <p>*Fechado aos domingos</p>
                     </div>
                     <Image src="/laportes_santoAndre.jpg" width={380} height={280} />
                     <iframe
@@ -77,7 +77,8 @@ const Index = () => {
                         <h3>Unidade São Caetano do Sul</h3>
                         <p>Rua Pernambuco, 400 - Centro</p>
                         <p>das 11:30h às 15h</p>
-                        <p>11 4226.7607</p>
+                        <p>(11) 4226-7607</p>
+                        <p>*Fechado aos sábados</p>
                     </div>
                     <Image src="/laportes_scs.jpg" width={380} height={280} />
                     <iframe

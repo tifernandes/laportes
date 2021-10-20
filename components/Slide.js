@@ -1,25 +1,22 @@
 import { Carousel } from 'antd';
 import styles from '../styles/Slide.module.css'
+import Image from 'next/image'
 
 const Slide = () => {
 
   const props = {
     dots: true,
     infinite: true,
-    speed: 3000,
-    autoplaySpeed: 6000,
+    speed: 1500,
+    autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1
   };
 
   return (
-    <Carousel autoplay {...props}>
-      <div className={styles.slide}>
-        <div className={styles.slide1} />
-      </div>
-      <div className={styles.slide}>
-        <div className={styles.slide2} />
-      </div>
+    <Carousel autoplay {...props} className={styles.slide}>
+        <Image src="/know-our-menu.png" width={516} height={387} />
+        <Image src="/laportes_santoAndre.jpg" width={516} height={387} />
     </Carousel>
   );
 }
