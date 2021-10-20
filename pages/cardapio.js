@@ -80,6 +80,11 @@ const Cardapio = ({ payload }) => {
         }
         scrolled ? setCategoriaFixed(true) : setCategoriaFixed(false)
     };
+
+    const removeScroll = () => {
+        window.scrollTo(0, 0);
+        document.body.scrollTop = 0;
+    }
     
     useEffect(() => {
         window.addEventListener("scroll", handleScroll); 
@@ -87,7 +92,7 @@ const Cardapio = ({ payload }) => {
 
     const CategoriaCmp = () => {
         return (
-            <Select onChange={handleSelect} onFocus={e => e.preventDefault()} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            <Select onChange={handleSelect} onFocus={removeScroll} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
                 {payload[0].map((categoria, x) => {
                     return (
                         <Option key={x} value={categoria.key}>{categoria.key}</Option>
@@ -99,11 +104,11 @@ const Cardapio = ({ payload }) => {
 
     return ( 
         <>
-            <Head>
-                <title>Laportes Restaurantes - Cardápio</title>
-                <link rel="icon" href="/favicon.ico" /> 
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
-            </Head>
+        <Head>
+            <title>Laportes Restaurantes - Cardápio</title>
+            <link rel="icon" href="/favicon.ico" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+        </Head>
         <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
         {categoriaFixed ?
             <div className={styles.categoriaFixed}>
