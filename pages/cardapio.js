@@ -87,7 +87,7 @@ const Cardapio = ({ payload }) => {
 
     const CategoriaCmp = () => {
         return (
-            <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            <Select onChange={handleSelect} onFocus={e => e.preventDefault()} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
                 {payload[0].map((categoria, x) => {
                     return (
                         <Option key={x} value={categoria.key}>{categoria.key}</Option>
