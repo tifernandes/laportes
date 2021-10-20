@@ -51,7 +51,7 @@
 
 .cardapioContainer {
     width: 100%;
-    height: 95vh;
+    padding: 250px 0px 180px 0px;
     background: url(/bgCardapio.jpg) center center no-repeat;
     background-size: cover;
     display: flex;
