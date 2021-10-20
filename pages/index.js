@@ -11,6 +11,7 @@ const Index = () => {
             <Head>
                 <title>Laportes Restaurantes - Qualidade diferenciada</title>
                 <link rel="icon" href="/favicon.ico" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
             </Head>
             {/* <Slide /> */}
             <div className={styles.cardapioContainer}>

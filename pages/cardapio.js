@@ -5,6 +5,7 @@ import Carrinho from "../components/Carrinho";
 import { useEffect, useState } from 'react';
 import { Select,Badge } from 'antd';
 import jump from 'jump.js'
+import Head from 'next/head'
 
 const { Option } = Select;
 
@@ -98,6 +99,11 @@ const Cardapio = ({ payload }) => {
 
     return ( 
         <>
+            <Head>
+                <title>Laportes Restaurantes - Cardápio</title>
+                <link rel="icon" href="/favicon.ico" />
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+            </Head>
         <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
         {categoriaFixed ?
             <div className={styles.categoriaFixed}>
