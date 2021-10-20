@@ -119,7 +119,11 @@ const Cardapio = ({ payload }) => {
             </Badge>
         </div>
         <div className={styles.container}>
-            <CategoriaCmp /> 
+            {!categoriaFixed ?
+                <CategoriaCmp /> 
+            :
+                <></>
+            }
             <div className={styles.produtos}>
                 {payload[0].map((categoria, x) => {
                     return (
