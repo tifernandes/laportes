@@ -101,7 +101,7 @@ const Cardapio = ({ payload }) => {
         <>
             <Head>
                 <title>Laportes Restaurantes - Cardápio</title>
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="/favicon.ico" /> 
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
             </Head>
         <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
