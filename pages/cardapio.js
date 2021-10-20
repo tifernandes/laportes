@@ -13,6 +13,7 @@ const Cardapio = ({ payload }) => {
     const [visible, setVisible] = useState(false);
     const [cart, setCart] = useState([]);
     const [cartItems, setCartItems] = useState([]);
+    const [categoriaFixed, setCategoriaFixed] = useState();
 
     useEffect(() => {
         var carrinho = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
@@ -62,16 +63,49 @@ const Cardapio = ({ payload }) => {
     }
 
     const handleSelect = (value) => {
-        console.log(`selected ${value}`);
-
         jump(`#${value}`, {
             duration: 500,
+            offset: -145
         })
+    }
+
+    const handleScroll = () => {
+        const currentScrollPos = window.pageYOffset;
+        var scrolled;
+        if(window.screen.width <= 1023){
+            scrolled = currentScrollPos > 90;
+        }else{
+            scrolled = currentScrollPos >= 200;
+        }
+        scrolled ? setCategoriaFixed(true) : setCategoriaFixed(false)
+    };
+    
+    useEffect(() => {
+        window.addEventListener("scroll", handleScroll); 
+    }, []);
+
+    const CategoriaCmp = () => {
+        return (
+            <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+                {payload[0].map((categoria, x) => {
+                    return (
+                        <Option key={x} value={categoria.key}>{categoria.key}</Option>
+                    )
+                })}
+            </Select>
+        )
     }
 
     return ( 
         <>
         <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
+        {categoriaFixed ?
+            <div className={styles.categoriaFixed}>
+                <CategoriaCmp /> 
+            </div>
+        : 
+            <></>
+        }
         <div className={styles.navbar}></div>
         <div onClick={carrinhoShow} className={styles.carrinho}>
             <Badge className={styles.carrinhoIcon} count={cart ? cart.length : 0}>
@@ -79,15 +113,7 @@ const Cardapio = ({ payload }) => {
             </Badge>
         </div>
         <div className={styles.container}>
-            <div className="flex justify-between pl-10 pr-10">
-                <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
-                    {payload[0].map((categoria, x) => {
-                        return (
-                            <Option key={x} value={categoria.key}>{categoria.key}</Option>
-                        )
-                    })}
-                </Select>
-            </div>
+            <CategoriaCmp /> 
             <div className={styles.produtos}>
                 {payload[0].map((categoria, x) => {
                     return (

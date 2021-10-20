@@ -78,7 +78,6 @@ const Index = () => {
                         <p>das 11:30h às 15h</p>
                         <p>11 4226.7607</p>
                     </div>
-                    <div className={styles.imgShadow}></div>
                     <Image src="/laportes_scs.jpg" width={380} height={280} />
                     <iframe
                     src="https://maps.google.com/maps?q=Rua%20Pernambuco,%20400%20-%20Centro&t=&z=13&ie=UTF8&iwloc=&output=embed"

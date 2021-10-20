@@ -120,3 +120,14 @@
     align-items: center;
     border: 2px solid #c07e20;
 }
+
+.categoriaFixed {
+    position: fixed;
+    top: 100px;
+    width: 1300px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+
+    @apply lg:w-full
+}
