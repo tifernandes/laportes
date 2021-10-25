@@ -2,21 +2,14 @@
 .produto {
     display: flex;
     justify-content: space-between;
-    padding: 10px 30px;
-    border-bottom: 2px solid rgb(167, 168, 167, 0.4);
+    align-items: center;
+    padding: 10px 5px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+    text-align: center;
 }
 
 .nomeProduto {
     width: 60%;
-}
-
-.carrinho {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 93%;
-
-    @apply lg:h-5/6
 }
 
 .carrinho button, .fazerPedido button {
@@ -27,7 +20,6 @@
     width: 100%;
     height: 60px;
     background: #EAAB51;
-    /* margin-top: 15px; */
     cursor: pointer;
 }
 
@@ -36,8 +28,40 @@
     background: #ca9346;
 }
 
-.produtos {
-    width: 100%;
+.carrinho {
+    display: flex;
+    flex-direction: column;
     height: 100%;
+}
+
+.pedidoForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.produtos,
+.pedidoForm {
+    width: 100%;
+    box-sizing: border-box;
     overflow: auto;
+}
+
+.produtos {
+    height: calc(100% - 200px);
+}
+
+.pedidoForm {
+    height: calc(100% - 215px);
+}
+
+
+.fazerPedido {
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.fazerPedido,
+.fazerPedido form {
+    height: 100%;
 }

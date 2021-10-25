@@ -37,7 +37,7 @@ const Carrinho = (props) => {
     }
 
     const fazerPedidoShow = () => {
-        visibleConcluir.display == 'none' ? setVisibleConcluir({display: 'block'}) : setVisibleConcluir({display: 'none'})
+        visibleConcluir.display == 'none' ? setVisibleConcluir({display: 'flex'}) : setVisibleConcluir({display: 'none'})
         visibleCarrinho.display == 'none' ? setvisibleCarrinho({display: 'flex'}) : setvisibleCarrinho({display: 'none'})
     }
 
@@ -66,33 +66,34 @@ const Carrinho = (props) => {
     return ( 
         <Drawer title="" placement="right" className={styles.container} onClose={props.carrinhoShow} visible={props.visible}>
             <div style={visibleCarrinho} className={styles.carrinho}>
-                <h3 className="text-6xl mb-10 text-center">Carrinho</h3>
-                <div className="flex flex-col h-full justify-between gap-5">
+                <div className="flex flex-col h-full justify-between">
+                    <h3 className="text-6xl text-center">Carrinho</h3>
                     <div className={styles.produtos}>
                         {carrinho.map((item, i) => {
-                                return (
-                                        <div key={i} className={styles.produto}>
-                                            <div className="flex gap-2 items-center">
-                                                <PlusOutlined onClick={() => handleQT('plus', item.id)} className="cursor-pointer" />
-                                                {qtItemsCarrinho.find(x => x.id === item.id).qt}x
-                                                <MinusOutlined onClick={() => handleQT('minus', item.id)} className="cursor-pointer" />
-                                            </div>
-                                            <h2 className={styles.nomeProduto}>{item.nome}</h2>
-                                            <h2>R$ {item.valor}</h2>
+                            return (
+                                    <div key={i} className={styles.produto}>
+                                        <div className="flex gap-2 items-center">
+                                            <PlusOutlined onClick={() => handleQT('plus', item.id)} className="cursor-pointer" />
+                                            {qtItemsCarrinho.find(x => x.id === item.id).qt}x
+                                            <MinusOutlined onClick={() => handleQT('minus', item.id)} className="cursor-pointer" />
                                         </div>
-                                )
-                            })
-                            }
+                                        <h2 className={styles.nomeProduto}>{item.nome}</h2>
+                                        <h2>R$ {item.valor}</h2>
+                                    </div>
+                            )
+                        })
+                        }
                     </div>
-                    <div className="flex justify-between text-xl">
-                        <h1>Total</h1>
-                        <h1>R$ {totalCarrinho}</h1>
+                    <div>
+                        <div className="flex justify-between text-xl">
+                            <h1>Total</h1>
+                            <h1>R$ {totalCarrinho}</h1>
+                        </div>
+                        <button onClick={fazerPedidoShow}>Fazer Pedido</button>
                     </div>
-                    <button onClick={fazerPedidoShow}>Fazer Pedido</button>
                 </div>
             </div>
             <div style={visibleConcluir} className={styles.fazerPedido}>
-                <h3 className="text-6xl mb-10 text-center">Pedido</h3>
                 <Form
                     name="basic"
                     id="dataForm"
@@ -101,68 +102,82 @@ const Carrinho = (props) => {
                     requiredMark={false}
                     // onFinishFailed={onFinishFailed}
                 >
+                    <h3 className="text-6xl text-center">Pedido</h3>
+                    <div className={styles.pedidoForm}>
+                        <Form.Item
+                            label="Nome completo"
+                            name="nomeCompleto"
+                            rules={[
+                                { required: true, min: 5, message: 'Favor informar seu nome completo.' },
+                                { pattern: new RegExp(/^[a-zA-Z\s]+$/i), message: 'Digite apenas letras.' }
+                            ]}
+                            // initialValue={data.name ? data.name : ''}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Nome completo"
-                        name="nomeCompleto"
-                        rules={[
-                            { required: true, min: 5, message: 'Favor informar seu nome completo.' },
-                            { pattern: new RegExp(/^[a-zA-Z\s]+$/i), message: 'Digite apenas letras.' }
-                        ]}
-                        // initialValue={data.name ? data.name : ''}
-                    >
-                        <Input />
-                    </Form.Item>
+                        <Form.Item
+                            label="E-mail"
+                            name="email"
+                            rules={[
+                                { required: true, message: 'Favor informar seu e-mail.' },
+                                {type: 'email', message: 'E-mail inválido.'}
+                            ]}
+                            // initialValue={data.email ? data.email : ''}
+                        >
+                            <Input />
+                        </Form.Item>
 
-                    <Form.Item
-                        label="E-mail"
-                        name="email"
-                        rules={[
-                            { required: true, message: 'Favor informar seu e-mail.' },
-                            {type: 'email', message: 'E-mail inválido.'}
-                        ]}
-                        // initialValue={data.email ? data.email : ''}
-                    >
-                        <Input />
-                    </Form.Item>
+                        <Form.Item
+                            label="Celular / WhatsApp"
+                            name="celular"
+                            rules={[
+                                { required: true, min: 15, message: 'Favor informar seu celular.' }
+                            ]}
+                            // initialValue={data.phone ? data.phone : ''}
+                        >
+                            <InputMask maskChar={null} mask="(99) 99999-9999">
+                                {(inputProps) => <Input {...inputProps} />}
+                            </InputMask>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Celular / WhatsApp"
-                        name="celular"
-                        rules={[
-                            { required: true, min: 15, message: 'Favor informar seu celular.' }
-                        ]}
-                        // initialValue={data.phone ? data.phone : ''}
-                    >
-                        <InputMask maskChar={null} mask="(99) 99999-9999">
-                            {(inputProps) => <Input {...inputProps} />}
-                        </InputMask>
-                    </Form.Item>
+                        <Form.Item
+                            label="Escolha uma opção:"
+                            name="entrega"
+                            // rules={[
+                            //     { required: true, min: 15, message: 'Favor informar tipo de entrega.' }
+                            // ]}
+                            // initialValue={data.phone ? data.phone : ''}
+                        >
 
-                    <Form.Item
-                        label="Escolha uma opção:"
-                        name="entrega"
-                        // rules={[
-                        //     { required: true, min: 15, message: 'Favor informar tipo de entrega.' }
-                        // ]}
-                        // initialValue={data.phone ? data.phone : ''}
-                    >
+                            <Select defaultValue="Retirada no local" disabled>
+                                <Option value="retirada no local">Retirada no local</Option>
+                            </Select>
+                        </Form.Item>
 
-                        <Select defaultValue="Retirada no local" disabled>
-                            <Option value="retirada no local">Retirada no local</Option>
-                        </Select>
-                    </Form.Item>
-
-                    <div className="flex justify-between text-xl mt-5">
-                        <h1>Total</h1>
-                        <h1>R$ {totalCarrinho}</h1>
+                        <Form.Item
+                            label="Observação:"
+                            name="obs"
+                            // rules={[
+                            //     { required: true, min: 15, message: 'Favor informar tipo de entrega.' }
+                            // ]}
+                            // initialValue={data.phone ? data.phone : ''}
+                        >
+                            <Input.TextArea />
+                        </Form.Item>
                     </div>
                     
-                    <Form.Item>
-                        <button className="mt-5">Finalizar Pedido</button>
-                    </Form.Item>
+                    <div>
+                        <div className="flex justify-between text-xl mt-5">
+                            <h1>Total</h1>
+                            <h1>R$ {totalCarrinho}</h1>
+                        </div>
+                        <Form.Item>
+                            <button>Finalizar Pedido</button>
+                        </Form.Item>
+                        <p className="mt-5 cursor-pointer text-center" onClick={fazerPedidoShow}>Voltar</p>
+                    </div>
                 </Form>
-                <p className="mt-5 cursor-pointer text-center" onClick={fazerPedidoShow}>Voltar</p>
             </div>
         </Drawer>
      );

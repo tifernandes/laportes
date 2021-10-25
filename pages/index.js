@@ -36,8 +36,8 @@ const Index = () => {
                     <div className={styles.divisor}></div>
                     <div className="hidden lg:block">
                         <p>Conheça mais sobre os quase 40 anos de tradição do Laportes</p>
-                        <FacebookOutlined className="cursor-pointer" />
-                        <InstagramOutlined className="cursor-pointer" />
+                        {/* <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+                        <div className="elfsight-app-4d1ce926-983e-4727-aad0-5073348fb2e7 w-full"></div> */}
                     </div>
                     <div className="lg:hidden">
                         <p>O Laportes foi inaugurado em 1982 em Santo André por Marina Laporte, mulher forte que na época criava suas filhas ainda pequenas - Simone, Solange e Debora - sozinha, por conta da morte prematura do marido. Já no princípio, ainda adolescentes, as meninas começaram a ajudar a mãe. A união e trabalho árduo das quatro logo conquistou clientela cativa formada principalmente por empresários e executivos da região que encontraram ali um ambiente prático e agradável associado à culinária variada e de bom gosto que já se revelava neste início. 
