@@ -64,7 +64,7 @@ const Carrinho = (props) => {
     }
 
     return ( 
-        <Drawer title="" placement="right" className={styles.container} onClose={props.carrinhoShow} visible={props.visible}>
+        <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={props.carrinhoShow} visible={props.visible}>
             <div style={visibleCarrinho} className={styles.carrinho}>
                 <div className="flex flex-col h-full justify-between">
                     <h3 className="text-6xl text-center">Carrinho</h3>

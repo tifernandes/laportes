@@ -3,3 +3,5 @@ pop up
 navbar flutuante
 observação no pedido
 accept cookies
+
+  // npm run dev -- -p 3005

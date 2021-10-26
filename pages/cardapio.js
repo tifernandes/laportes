@@ -15,11 +15,31 @@ const Cardapio = ({ payload }) => {
     const [cart, setCart] = useState([]);
     const [cartItems, setCartItems] = useState([]);
     const [categoriaFixed, setCategoriaFixed] = useState();
+    const [produtos, setProdutos] = useState([]);
+    const [categorias, setCategorias] = useState([]);
 
     useEffect(() => {
         var carrinho = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
-
         setCart(carrinho)
+
+        async function getProdutos(){
+            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
+            const cardapioApi = await axios.get(`${endPoint}/api/cardapioAPI`);
+            var categoria = [];
+            var produtos = [];
+
+            cardapioApi.data[0].map((ct, x) => {
+                ct.values.map((prd, x) => {
+                    produtos.push(prd);
+                })
+                categoria.push(ct)
+            })
+
+            setCategorias(categoria);
+            setProdutos(produtos);
+        }
+
+        getProdutos();
     }, [])
 
     const carrinhoShow = () => {
@@ -88,7 +108,7 @@ const Cardapio = ({ payload }) => {
     const CategoriaCmp = () => {
         return (
             <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
-                {payload[0].map((categoria, x) => {
+                {categorias.map((categoria, x) => {
                     return (
                         <Option key={x} value={categoria.key}>{categoria.key}</Option>
                     )
@@ -129,7 +149,7 @@ const Cardapio = ({ payload }) => {
                 <></>
             }
             <div className={styles.produtos}>
-                {payload[0].map((categoria, x) => {
+                {categorias.map((categoria, x) => {
                     return (
                         <div key={x} id={categoria.key} className={styles.categoria}>
                             <h1 className={styles.categoriaTitle}><span>{categoria.key}</span></h1>
@@ -162,13 +182,13 @@ const Cardapio = ({ payload }) => {
  
 export default Cardapio;
 
-export const getServerSideProps = async () => {
-    const endPoint = process.env.WEBSITE || 'https://laportes.vercel.app';
-    const res = await axios.get(`${endPoint}/api/cardapioAPI`);
+// export const getServerSideProps = async () => {
+//     const endPoint = process.env.WEBSITE || 'https://laportes.vercel.app';
+//     const res = await axios.get(`${endPoint}/api/cardapioAPI`);
 
-    return { 
-        props: { 
-            payload: res.data 
-        }
-    }
-}
+//     return { 
+//         props: { 
+//             payload: res.data 
+//         }
+//     }
+// }

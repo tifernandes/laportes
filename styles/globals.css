@@ -29,11 +29,10 @@ h3 {
   font-family: 'Parisienne', cursive;
 }
 
-.ant-drawer-content-wrapper {
+/* .ant-drawer-content-wrapper {
   max-width: 550px !important;
   width: 80% !important;
-  
-}
+} */
 
 .ant-drawer-content,
 .ant-drawer-header {
@@ -59,15 +58,6 @@ p, a, h1, h2 {
 
 
 /* Padrão do ant */
-
-.ant-drawer-body {
-  flex-grow: 1;
-  padding: 24px 5px 5px 5px !important;
-  overflow: auto;
-  font-size: 14px;
-  line-height: 1.5715;
-  word-wrap: break-word;
-}
 
 .ant-form-item {
   display: unset;
@@ -141,4 +131,46 @@ background: #fff;
 .ant-menu {
   padding: 16px 0px;
   width: 100%;
+}
+
+/* css product admin */
+.sinaisHeader {
+  padding: 20px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.sinaisHeader input {
+  text-align: center;
+}
+
+.tableSinais .ant-table table{
+  /* background: purple; */
+}
+
+.formAddSinal{
+  padding: 25px 3px;
+}
+
+.addSinal{
+  padding: 3px 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-form-item {
+  margin-bottom: 10px !important;
+}
+
+.sinal_exemplo{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+@media (max-width: 480px) {
+  .ant-table {
+      width: 100%;
+      overflow-x: auto;
+  }
 }
