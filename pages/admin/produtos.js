@@ -83,7 +83,7 @@ const Produtos = () => {
     {
         title: 'Imagem',
         dataIndex: 'imagem',
-        key: 'imagem',
+        key: 'imagem'
         // render: dia => moment(dia).format('L')
     }
     ];
@@ -111,11 +111,6 @@ const Produtos = () => {
 
     };
 
-    const filtroSinais = async value => {
-        const sinaisApi = await api.get(`/sinaisob?filtro=${value}&usrid=${user.id}`)
-        setSinais(sinaisApi.data[0]);
-    }
-
     if(loading){
         return (
             <div style={{display: 'flex', height: '65vh', justifyContent: 'center', alignItems: 'center'}}>
@@ -136,22 +131,6 @@ const Produtos = () => {
         ]}
         onCancel={() => setmodalSinal(false)}
         >
-            <Collapse
-                bordered={false}
-                defaultActiveKey={['1']}
-                expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-                className="site-collapse-custom-collapse"
-            >
-                <Panel header="Exemplo de uso" key="1" className="site-collapse-custom-panel">
-                    <p>Para adicionar digite cada sinal em uma linha separando "Hora, Ativo, Direção" por uma vírgula:</p>
-                    <div className="sinal_exemplo">
-                        <Text code>01:30,AUD/USD,PUT</Text>
-                        <Text code>13:45,EUR/USD,CALL</Text>
-                        <Text code>22:15,GBP/JPY-OTC,CALL</Text>
-                    </div>
-                    <p>* Certifique-se de que não existam espaços em branco e nomes de ativos incorretos.</p>
-                </Panel>
-            </Collapse>
             <Form id="sinalForm" onFinish={addSinais} className="formAddSinal">
                 <Form.Item name="sinais_data" className="addSinal" label="Data dos sinais:" initialValue={moment(moment().format('L'), 'DD/MM/YYYY')} rules={[{required: true, message: 'Campo Obrigatório!' }]}>
                     <DatePicker format={'DD/MM/YYYY'} />
