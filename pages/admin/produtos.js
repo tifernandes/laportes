@@ -29,8 +29,6 @@ const Produtos = () => {
             var categoria = [];
             var produtos = [];
 
-            console.log(cardapioApi.data[0])
-
             cardapioApi.data[0].map((ct, x) => {
                 ct.values.map((prd, x) => {
                     produtos.push(prd);

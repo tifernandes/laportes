@@ -1,11 +1,12 @@
 import axios from "axios";
 import styles from '../styles/Cardapio.module.css'
-import { ShoppingCartOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, PlusOutlined, MinusOutlined, LoadingOutlined } from '@ant-design/icons';
 import Carrinho from "../components/Carrinho";
-import { useEffect, useState } from 'react';
-import { Select,Badge } from 'antd';
+import { useEffect, useState, useContext } from 'react';
+import { Select,Badge, Drawer, Spin } from 'antd';
 import jump from 'jump.js'
 import Head from 'next/head'
+import AuthContext from '../context/authContext';
 
 const { Option } = Select;
 
@@ -13,6 +14,7 @@ const Cardapio = ({ payload }) => {
 
     const [visible, setVisible] = useState(false);
     const [cart, setCart] = useState([]);
+    const [ loading, setLoading ] = useState(true);
     const [cartItems, setCartItems] = useState([]);
     const [categoriaFixed, setCategoriaFixed] = useState();
     const [produtos, setProdutos] = useState([]);
@@ -37,6 +39,8 @@ const Cardapio = ({ payload }) => {
 
             setCategorias(categoria);
             setProdutos(produtos);
+
+            setLoading(false) 
         }
 
         getProdutos();
@@ -44,16 +48,7 @@ const Cardapio = ({ payload }) => {
 
     const carrinhoShow = () => {
         if(!visible){
-
-            var allProducts = [];
-
-            payload[0].map((categoria, x) => {
-                categoria.values.map((item, i) => {
-                    allProducts.push(item)
-                })
-            });
-
-            var filterCart = allProducts.filter(function(e) {
+            var filterCart = produtos.filter(function(e) {
                 return cart.findIndex(x => x.id == e.id) !== -1
             });
 
@@ -117,6 +112,14 @@ const Cardapio = ({ payload }) => {
         )
     }
 
+    const LoadingCmp = () => {
+        return (
+            <div style={{display: 'flex', height: '65vh', justifyContent: 'center', alignItems: 'center'}}>
+                <Spin size='large' indicator={<LoadingOutlined style={{ fontSize: 35, color: '#c07e20' }} spin />} />
+            </div>
+        )
+    }
+
     return ( 
         <>
         <Head>
@@ -124,7 +127,9 @@ const Cardapio = ({ payload }) => {
             <link rel="icon" href="/favicon.ico" /> 
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         </Head>
-        <Carrinho visible={visible} carrinhoShow={carrinhoShow} carrinho={cartItems} />
+        <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={carrinhoShow} visible={visible}>
+            <Carrinho carrinho={cartItems} />
+        </Drawer>
         {categoriaFixed ?
             <div className={styles.categoriaContainerFixed}>
                 <div className={styles.categoriaFixed}>
@@ -149,31 +154,37 @@ const Cardapio = ({ payload }) => {
                 <></>
             }
             <div className={styles.produtos}>
-                {categorias.map((categoria, x) => {
-                    return (
-                        <div key={x} id={categoria.key} className={styles.categoria}>
-                            <h1 className={styles.categoriaTitle}><span>{categoria.key}</span></h1>
-                            {categoria.values.map((item, i) => {
-                                return (
-                                    <div key={i} className={styles.produto}>
-                                        <div className={styles.info}>
-                                            <h1 className="text-xl">{item.nome}</h1>
-                                            <p className="text-md">{item.descricao}</p>
-                                            <h2>R$ {item.valor}</h2>
+                {loading ? 
+                    <LoadingCmp />
+                :
+                <>
+                    {categorias.map((categoria, x) => {
+                        return (
+                            <div key={x} id={categoria.key} className={styles.categoria}>
+                                <h1 className={styles.categoriaTitle}><span>{categoria.key}</span></h1>
+                                {categoria.values.map((item, i) => {
+                                    return (
+                                        <div key={i} className={styles.produto}>
+                                            <div className={styles.info}>
+                                                <h1 className="text-xl">{item.nome}</h1>
+                                                <p className="text-md">{item.descricao}</p>
+                                                <h2>R$ {item.valor}</h2>
+                                            </div>
+                                            <div className={styles.actions}>
+                                                {cart.findIndex(x => x.id == item.id) > -1 ? 
+                                                    <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
+                                                    :
+                                                    <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
+                                                }
+                                            </div>
                                         </div>
-                                        <div className={styles.actions}>
-                                            {cart.findIndex(x => x.id == item.id) > -1 ? 
-                                                <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
-                                                :
-                                                <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
-                                            }
-                                        </div>
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    )
-                })}
+                                    )
+                                })}
+                            </div>
+                        )
+                    })}
+                </>
+                }
             </div>
         </div>
         </>

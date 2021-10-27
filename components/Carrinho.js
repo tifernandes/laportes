@@ -1,28 +1,39 @@
 import { Drawer } from 'antd';
 import { useState, useEffect } from 'react';
 import styles from '../styles/Carrinho.module.css'
-import { Form, Input, Select } from 'antd';
+import { Form, Input, Select, Collapse  } from 'antd';
 import InputMask from 'react-input-mask';
-import { MinusOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusOutlined, PlusOutlined, LoadingOutlined, WhatsAppOutlined, CaretRightOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
+const { Panel } = Collapse;
 
 const Carrinho = (props) => {
 
     const [visibleConcluir, setVisibleConcluir] = useState({display: 'none'});
+    const [resumoPedido, setResumoPedido] = useState([]);
+    const [visibleRealizado, setVisibleRealizado] = useState({display: 'none'});
     const [visibleCarrinho, setvisibleCarrinho] = useState({display: 'flex'});
     const [totalCarrinho, setTotalCarrinho] = useState(0);
     const [carrinho, setCarrinho] = useState([]);
     const [qtItemsCarrinho, setQtItemsCarrinho] = useState([]);
+    const [reloadApis, setreloadApis] = useState(false);    
 
     useEffect(() => {
         var carrinhoStorage = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
+        var pedidoFeito = JSON.parse(localStorage.getItem('didOrder'));
+        
+        if(pedidoFeito){
+            setvisibleCarrinho({display: 'none'})
+            setVisibleConcluir({display: 'none'})
+            setVisibleRealizado({display: 'flex'})
+        }
 
         setQtItemsCarrinho(carrinhoStorage);
         setCarrinho(props.carrinho);
         calcTotal();
 
-    }, [props.visible])
+    }, [reloadApis])
 
     const calcTotal = () => {
         var carrinhoStorage = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
@@ -36,13 +47,32 @@ const Carrinho = (props) => {
         setTotalCarrinho(total);
     }
 
-    const fazerPedidoShow = () => {
-        visibleConcluir.display == 'none' ? setVisibleConcluir({display: 'flex'}) : setVisibleConcluir({display: 'none'})
-        visibleCarrinho.display == 'none' ? setvisibleCarrinho({display: 'flex'}) : setvisibleCarrinho({display: 'none'})
+    const fazerPedidoShow = (tela) => {
+        if(tela == 'Carrinho'){
+            setvisibleCarrinho({display: 'flex'})
+            setVisibleConcluir({display: 'none'})
+            setVisibleRealizado({display: 'none'})
+        }else if(tela == 'Concluir'){
+            setvisibleCarrinho({display: 'none'})
+            setVisibleConcluir({display: 'flex'})
+            setVisibleRealizado({display: 'none'})
+        }
     }
 
-    const finalizarPedido = () => {
-        console.log('finished');
+    const finalizarPedido = values => {
+
+        carrinho.map((item, i) => {
+            const findItem = qtItemsCarrinho.find(x => x.id === item.id).qt;
+            item.qt = findItem;
+        })
+
+        setResumoPedido(carrinho)
+
+        localStorage.setItem('didOrder', JSON.stringify({id: '123'}));
+
+        setvisibleCarrinho({display: 'none'})
+        setVisibleConcluir({display: 'none'})
+        setVisibleRealizado({display: 'flex'})
     }
 
     const handleQT = async (type, idItem) => {
@@ -64,7 +94,7 @@ const Carrinho = (props) => {
     }
 
     return ( 
-        <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={props.carrinhoShow} visible={props.visible}>
+        <>
             <div style={visibleCarrinho} className={styles.carrinho}>
                 <div className="flex flex-col h-full justify-between">
                     <h3 className="text-6xl text-center">Carrinho</h3>
@@ -89,7 +119,7 @@ const Carrinho = (props) => {
                             <h1>Total</h1>
                             <h1>R$ {totalCarrinho}</h1>
                         </div>
-                        <button onClick={fazerPedidoShow}>Fazer Pedido</button>
+                        <button onClick={() => fazerPedidoShow('Concluir')}>Fazer Pedido</button>
                     </div>
                 </div>
             </div>
@@ -98,7 +128,7 @@ const Carrinho = (props) => {
                     name="basic"
                     id="dataForm"
                     initialValues={{ remember: true }}
-                    onFinish={() => finalizarPedido()}
+                    onFinish={finalizarPedido}
                     requiredMark={false}
                     // onFinishFailed={onFinishFailed}
                 >
@@ -144,13 +174,9 @@ const Carrinho = (props) => {
                         <Form.Item
                             label="Escolha uma opção:"
                             name="entrega"
-                            // rules={[
-                            //     { required: true, min: 15, message: 'Favor informar tipo de entrega.' }
-                            // ]}
-                            // initialValue={data.phone ? data.phone : ''}
                         >
 
-                            <Select defaultValue="Retirada no local" disabled>
+                            <Select defaultValue="Retirada no local">
                                 <Option value="retirada no local">Retirada no local</Option>
                             </Select>
                         </Form.Item>
@@ -158,10 +184,6 @@ const Carrinho = (props) => {
                         <Form.Item
                             label="Observação:"
                             name="obs"
-                            // rules={[
-                            //     { required: true, min: 15, message: 'Favor informar tipo de entrega.' }
-                            // ]}
-                            // initialValue={data.phone ? data.phone : ''}
                         >
                             <Input.TextArea />
                         </Form.Item>
@@ -175,11 +197,51 @@ const Carrinho = (props) => {
                         <Form.Item>
                             <button>Finalizar Pedido</button>
                         </Form.Item>
-                        <p className="mt-5 cursor-pointer text-center" onClick={fazerPedidoShow}>Voltar</p>
+                        <p className="mt-5 cursor-pointer text-center" onClick={() => fazerPedidoShow('Carrinho')}>Voltar</p>
                     </div>
                 </Form>
             </div>
-        </Drawer>
+            <div style={visibleRealizado} className={styles.fazerPedido}>
+                <div className="flex flex-col h-full">
+                    <h3 className="text-6xl text-center">Pedido Realizado</h3>
+                    <div className={styles.pedidoConfirmado}>
+                        {/* <h4 className="text-xl text-center">Obrigado !</h4> */}
+                        <div className={styles.subcontainerPedido}>
+                            <LoadingOutlined />
+                            <div>
+                            <p>Pedido em preparo...</p>
+                            <p className={styles.previsao}>Previsão: 20 ~ 30 min</p>
+                            </div>
+                        </div>
+                        <Collapse
+                            bordered={false}
+                            expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
+                            className="site-collapse-custom-collapse w-full"
+                        >
+                            <Panel header="Ver resumo do pedido" key="1" className="site-collapse-custom-panel">
+                                {resumoPedido.map((item, x) => {
+                                    return (
+                                        <div key={x} className={styles.resumoPedido}>
+                                            <p>{item.qt}x</p>
+                                            <p>{item.nome}</p>
+                                            <p>R${item.valor}</p>
+                                        </div>
+                                    )
+                                })}
+                                <div className={styles.resumoPedido}>
+                                    <p>Total</p>
+                                    <p>R${totalCarrinho}</p>
+                                </div>
+                            </Panel>
+                        </Collapse>
+                        <div className={styles.iniciarConversa}>
+                            <WhatsAppOutlined />
+                            <p>Iniciar Conversa</p>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+        </>
      );
 }
  
