@@ -82,3 +82,33 @@
 .contentMenu {
   z-index: 100;
 }
+
+.lgpd {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  bottom: 0;
+  z-index: 1000;
+  color: white;
+  text-align: center;
+}
+
+.lgpdContent {
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  @apply lg:flex-col
+}
+
+.lgpdContent button{
+  font-family: 'Paytone One', sans-serif;
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 5px 30px;
+  background: #EAAB51;
+  cursor: pointer;
+}

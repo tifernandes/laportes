@@ -1,7 +1,6 @@
 Integração email locaweb
 pop up
-navbar flutuante
-observação no pedido
+bloquear cardápio quando pedido ja existir (mudar icone do carrinho)
 accept cookies
 
   // npm run dev -- -p 3005

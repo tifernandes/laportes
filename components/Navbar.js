@@ -12,6 +12,7 @@ const Navbar = () => {
     const router = useRouter()
     const [visible, setVisible] = useState(false);
     const [menuFixed, setMenuFixed] = useState();
+    const [lgpd, setLgpd] = useState(true);
 
     const mobileMenuShow = () => {
         setVisible(!visible);
@@ -40,8 +41,20 @@ const Navbar = () => {
     };
     
     useEffect(() => {
-        window.addEventListener("scroll", handleScroll); 
+        window.addEventListener("scroll", handleScroll);
+
+        var lgpdCheck = localStorage.getItem('lgpd') || [];
+        
+        if(lgpdCheck == 'accepted'){
+            setLgpd(false);
+        }
+
     }, []);
+
+    const acceptLGPD = () => {
+        localStorage.setItem('lgpd', 'accepted');
+        setLgpd(false);
+    }
 
     const ContentMenu = () => {
         return (
@@ -69,14 +82,12 @@ const Navbar = () => {
                     <Link href="/">
                         <a>Início</a>
                     </Link>
-                        <a onClick={() => scrollSmooth('historia')}>História</a>
+                    <a onClick={() => scrollSmooth('historia')}>História</a>
                     <Link href="/cardapio">
                         <a>Cardápio</a>
                     </Link>
                     <a onClick={() => scrollSmooth('unidades')}>Unidades</a>
-                    <Link href="/historia">
-                        <a>Contato</a>
-                    </Link>
+                    <a onClick={() => scrollSmooth('contato')}>Contato</a>
                 </div>
                 <div className="flex lg:hidden text-3xl gap-x-5">
                     <FacebookOutlined className="cursor-pointer" />
@@ -107,6 +118,12 @@ const Navbar = () => {
                 </div>
             }
             <div className={styles.divisor}></div>
+            <div className={styles.lgpd} style={{display: lgpd ? 'block' : 'none' }}>
+                <div className={styles.lgpdContent}>
+                    <p>O site está em conformidade com a LGPD e utiliza cookies para oferecer uma melhor experiência ao visitante. Ao navegar em nosso site, você concorda com a utilização de cookies.</p>
+                    <button onClick={acceptLGPD}>Concordo</button>
+                </div>
+            </div>
         </>
     )
 }

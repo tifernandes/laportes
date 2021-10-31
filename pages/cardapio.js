@@ -1,6 +1,6 @@
 import axios from "axios";
 import styles from '../styles/Cardapio.module.css'
-import { ShoppingCartOutlined, PlusOutlined, MinusOutlined, LoadingOutlined } from '@ant-design/icons';
+import { ShoppingCartOutlined, PlusOutlined, MinusOutlined, LoadingOutlined, CarryOutOutlined } from '@ant-design/icons';
 import Carrinho from "../components/Carrinho";
 import { useEffect, useState, useContext } from 'react';
 import { Select,Badge, Drawer, Spin } from 'antd';
@@ -14,15 +14,22 @@ const Cardapio = ({ payload }) => {
 
     const [visible, setVisible] = useState(false);
     const [cart, setCart] = useState([]);
-    const [ loading, setLoading ] = useState(true);
+    const [loading, setLoading ] = useState(true);
     const [cartItems, setCartItems] = useState([]);
     const [categoriaFixed, setCategoriaFixed] = useState();
     const [produtos, setProdutos] = useState([]);
     const [categorias, setCategorias] = useState([]);
-
+    const [pedidoRealizado, setPedidoRealizado] = useState(false);
+    
     useEffect(() => {
         var carrinho = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
         setCart(carrinho)
+
+        var didOrder = JSON.parse(localStorage.getItem('didOrder')) || null;
+
+        if(didOrder){
+            setPedidoRealizado(true);
+        }
 
         async function getProdutos(){
             const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
@@ -44,7 +51,7 @@ const Cardapio = ({ payload }) => {
         }
 
         getProdutos();
-    }, [])
+    }, [visible])
 
     const carrinhoShow = () => {
         if(!visible){
@@ -141,9 +148,15 @@ const Cardapio = ({ payload }) => {
         }
         <div className={styles.navbar}></div>
         <div onClick={carrinhoShow} className={styles.carrinho}>
-            <Badge className={styles.carrinhoIcon} count={cart ? cart.length : 0}>
-                <ShoppingCartOutlined />
-            </Badge>
+            {pedidoRealizado ?
+                <Badge className={styles.carrinhoIcon}>
+                    <CarryOutOutlined />
+                </Badge>
+            : 
+                <Badge className={styles.carrinhoIcon} count={cart ? cart.length : 0}>
+                    <ShoppingCartOutlined />
+                </Badge>
+            }
         </div>
         <div className={styles.container}>
             {!categoriaFixed ?

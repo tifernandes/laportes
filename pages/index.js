@@ -3,9 +3,19 @@ import Slide from '../components/Slide'
 import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
+import { Form, Input  } from 'antd';
 import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
+import { useState } from 'react'
 
 const Index = () => {
+    
+    const [enviado, setEnviado] = useState(false);
+
+    const enviarContato = values => {
+        console.log(values);
+        setEnviado(true);
+    }
+
     return(
         <div className={styles.container}>
             <Head>
@@ -92,6 +102,65 @@ const Index = () => {
                     aria-hidden="false"
                     tabIndex="0"
                     />
+                </div>
+            </div>
+            <div id="contato" className={styles.contatoContainer}>
+                <div className={styles.contato}>
+                    <div className="text-center">
+                        <h3>Restou alguma dúvida ?</h3>
+                        <p>Envie sua mensagem agora mesmo preenchendo os campos abaixo, entraremos em contato posteriormente.</p>
+                    </div>
+                    <div className={styles.contatoSub} style={{display: enviado ? 'none' : 'block' }}>
+                        <Form
+                            name="basic"
+                            id="dataForm"
+                            initialValues={{ remember: true }}
+                            onFinish={enviarContato}
+                            requiredMark={false}
+                            // onFinishFailed={onFinishFailed}
+                        >
+                                <Form.Item
+                                    label="Nome completo"
+                                    name="nomeCompleto"
+                                    rules={[
+                                        { required: true, min: 5, message: 'Favor informar seu nome completo.' },
+                                        { pattern: new RegExp(/^[a-zA-Z\s]+$/i), message: 'Digite apenas letras.' }
+                                    ]}
+                                    // initialValue={data.name ? data.name : ''}
+                                >
+                                    <Input />
+                                </Form.Item>
+
+                                <Form.Item
+                                    label="E-mail"
+                                    name="email"
+                                    rules={[
+                                        { required: true, message: 'Favor informar seu e-mail.' },
+                                        {type: 'email', message: 'E-mail inválido.'}
+                                    ]}
+                                    // initialValue={data.email ? data.email : ''}
+                                >
+                                    <Input />
+                                </Form.Item>
+
+                                <Form.Item
+                                    label="Mensagem:"
+                                    name="mensagem"
+                                    rules={[
+                                        { required: true, message: 'Favor escrever mensagem.' }
+                                    ]}
+                                >
+                                    <Input.TextArea />
+                                </Form.Item>
+
+                                <Form.Item>
+                                    <button>Enviar</button>
+                                </Form.Item>
+                        </Form>
+                    </div>
+                    <div className={styles.contatoEnviado} style={{display: enviado ? 'block' : 'none' }}>
+                        <button>Mensagem enviada !</button>
+                    </div>
                 </div>
             </div>
         </div>

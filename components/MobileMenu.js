@@ -16,9 +16,7 @@ const MobileMenu = (props) => {
                     <a onClick={props.mobileMenuShow}>Cardápio</a>
                 </Link>
                 <a onClick={() => props.scrollSmooth('unidades')}>Unidades</a>
-                <Link href="/historia">
-                    <a onClick={props.mobileMenuShow}>Contato</a>
-                </Link>
+                <a onClick={() => props.scrollSmooth('contato')}>Contato</a>
                 <div className="flex text-3xl gap-x-10">
                     <FacebookOutlined className="cursor-pointer" />
                     <InstagramOutlined className="cursor-pointer" />
