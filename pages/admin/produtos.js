@@ -11,6 +11,7 @@ const { TextArea } = Input;
 const { Panel } = Collapse;
 const { Text } = Typography;
 const { Option } = Select;
+import Head from 'next/head'
 
 const Produtos = () => {
 
@@ -78,12 +79,12 @@ const Produtos = () => {
             return (<><CheckOutlined style={{fontSize: '22px', transform: 'scale(.83)', color: '#52c41a' }}/> {d}</>)
         }
     },
-    {
-        title: 'Imagem',
-        dataIndex: 'imagem',
-        key: 'imagem'
-        // render: dia => moment(dia).format('L')
-    }
+    // {
+    //     title: 'Imagem',
+    //     dataIndex: 'imagem',
+    //     key: 'imagem'
+    //     // render: dia => moment(dia).format('L')
+    // }
     ];
     
     const addSinais = async values => {
@@ -119,6 +120,11 @@ const Produtos = () => {
 
     return ( 
         <>
+        <Head>
+            <title>Laportes - Produtos</title>
+            <link rel="icon" href="/favicon.ico" /> 
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
+        </Head>
         <Modal
         title="Novo Sinal"
         visible={modalSinal}
