@@ -33,7 +33,7 @@ const Carrinho = (props) => {
         setCarrinho(props.carrinho);
         calcTotal();
 
-    }, [reloadApis])
+    }, [props.carrinho])
 
     const calcTotal = () => {
         var carrinhoStorage = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];

@@ -99,12 +99,6 @@ const Cardapio = ({ payload }) => {
 
     }
 
-    const handleFocusSelect = () => {
-        const currentScrollPos = window.pageYOffset;
-        
-        jump(0);
-    }
-
     const handleScroll = () => {
         const currentScrollPos = window.pageYOffset;
         var scrolled;
@@ -122,7 +116,7 @@ const Cardapio = ({ payload }) => {
 
     const CategoriaCmp = () => {
         return (
-            <Select onChange={handleSelect} onFocus={handleFocusSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
                 {categorias.map((categoria, x) => {
                     return (
                         <Option key={x} value={categoria}>{categoria}</Option>
