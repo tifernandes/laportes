@@ -37,14 +37,18 @@ const Cardapio = ({ payload }) => {
             var categoria = [];
             var produtos = [];
 
-            cardapioApi.data[0].map((ct, x) => {
-                ct.values.map((prd, x) => {
+            cardapioApi.data[0].map((data, x) => {
+                data.values.map((prd, x) => {
                     produtos.push(prd);
                 })
-                categoria.push(ct)
+                data.key.map((ct, y) => {
+                    categoria.push(ct)
+                })
             })
 
-            setCategorias(categoria);
+            let categoriasUnicas = [...new Set(categoria)];
+
+            setCategorias(categoriasUnicas);
             setProdutos(produtos);
 
             setLoading(false) 
@@ -55,8 +59,9 @@ const Cardapio = ({ payload }) => {
 
     const carrinhoShow = () => {
         if(!visible){
+
             var filterCart = produtos.filter(function(e) {
-                return cart.findIndex(x => x.id == e.id) !== -1
+                return cart.findIndex(x => x.id == e._id) !== -1
             });
 
             setCartItems(filterCart);
@@ -75,18 +80,25 @@ const Cardapio = ({ payload }) => {
             if(prd > -1){
                 carrinho.splice(prd, 1);
             }else{
-                carrinho.push({"id": parseInt(prdID), "qt": 1});
+                carrinho.push({"id": prdID, "qt": 1});
             }
         }else{
-            carrinho.push({"id": parseInt(prdID), "qt": 1});
+            carrinho.push({"id": prdID, "qt": 1});
         }
-        
+
         localStorage.setItem('prdcrtLaportes', JSON.stringify(carrinho));
         setCart(carrinho)
     }
 
     const handleSelect = (value) => {
-        jump(`#${value}`, {
+
+        // jump(`#${value}`, {
+        //     duration: 500,
+        //     offset: -145
+        // })
+
+        
+        jump(`#${value.target.value}`, {
             duration: 500,
             offset: -145
         })
@@ -109,13 +121,22 @@ const Cardapio = ({ payload }) => {
 
     const CategoriaCmp = () => {
         return (
-            <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            // <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            //     {categorias.map((categoria, x) => {
+            //         return (
+            //             <Option key={x} value={categoria}>{categoria}</Option>
+            //         )
+            //     })}
+            // </Select>
+
+            <select onChange={handleSelect} style={{ width: '100%' }}>
+                <option value="" selected disabled hidden>Selecione um tipo de produto...</option>
                 {categorias.map((categoria, x) => {
                     return (
-                        <Option key={x} value={categoria.key}>{categoria.key}</Option>
+                        <option key={x} value={categoria}>{categoria}</option>
                     )
                 })}
-            </Select>
+            </select>
         )
     }
 
@@ -173,25 +194,29 @@ const Cardapio = ({ payload }) => {
                 <>
                     {categorias.map((categoria, x) => {
                         return (
-                            <div key={x} id={categoria.key} className={styles.categoria}>
-                                <h1 className={styles.categoriaTitle}><span>{categoria.key}</span></h1>
-                                {categoria.values.map((item, i) => {
-                                    return (
-                                        <div key={i} className={styles.produto}>
-                                            <div className={styles.info}>
-                                                <h1 className="text-xl">{item.nome}</h1>
-                                                <p className="text-md">{item.descricao}</p>
-                                                <h2>R$ {item.valor}</h2>
-                                            </div>
-                                            <div className={styles.actions}>
-                                                {cart.findIndex(x => x.id == item.id) > -1 ? 
-                                                    <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
-                                                    :
-                                                    <h2 onClick={() => handleCarrinho((item.id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
-                                                }
-                                            </div>
-                                        </div>
-                                    )
+                            <div key={x} id={categoria} className={styles.categoria}>
+                                <h1 className={styles.categoriaTitle}><span>{categoria}</span></h1>
+                                {produtos.map((prd, x) => {
+                                    return prd.categoria.map((ct, y) => {
+                                        if(ct.toLowerCase().includes(categoria.toLowerCase())){
+                                            return (
+                                                <div key={y} className={styles.produto}>
+                                                    <div className={styles.info}>
+                                                        <h1 className="text-xl">{prd.nome}</h1>
+                                                        <p className="text-md">{prd.descricao}</p>
+                                                        <h2>R$ {prd.valor}</h2>
+                                                    </div>
+                                                    <div className={styles.actions}>
+                                                        {cart.findIndex(x => x.id == prd.id) > -1 ? 
+                                                            <h2 onClick={() => handleCarrinho((prd.id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
+                                                            :
+                                                            <h2 onClick={() => handleCarrinho((prd.id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+                                    })
                                 })}
                             </div>
                         )

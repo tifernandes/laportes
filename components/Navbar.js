@@ -90,8 +90,12 @@ const Navbar = () => {
                     <a onClick={() => scrollSmooth('contato')}>Contato</a>
                 </div>
                 <div className="flex lg:hidden text-3xl gap-x-5">
-                    <FacebookOutlined className="cursor-pointer" />
-                    <InstagramOutlined className="cursor-pointer" />
+                    <Link href="https://www.instagram.com/laportescompany/">
+                        <a target="_blank"><FacebookOutlined className="cursor-pointer" /></a>
+                    </Link>
+                    <Link href="https://web.facebook.com/restaurantelaportes">
+                        <a target="_blank"><InstagramOutlined className="cursor-pointer" /></a>
+                    </Link>
                 </div>
             </>
         )

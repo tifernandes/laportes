@@ -148,10 +148,6 @@ background: #fff;
   /* background: purple; */
 }
 
-.formAddSinal{
-  padding: 25px 3px;
-}
-
 .addSinal{
   padding: 3px 25px;
   display: flex;

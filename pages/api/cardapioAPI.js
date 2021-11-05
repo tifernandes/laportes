@@ -1,132 +1,58 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { MongoClient, ObjectId } from 'mongodb';
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function (req, res) {
+export default async function (req, res) {
 
-    const products = [
-    {
-      id: 1,
-      nome: 'Trança doce de mandioquinha',
-      valor: 30,
-      descricao: 'Supermacia e com recheio de creme de baunilha e casquinha de açúcar no topo',
-      categoria: 'Pães'
-    },
-    {
-      id: 2,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pães'
-    },
-    {
-      id: 3,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pães'
-    },
-    {
-      id: 4,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pães'
-    },
-    {
-      id: 5,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Doces'
-    },
-    {
-      id: 6,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Doces'
-    },
-    {
-      id: 7,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Doces'
-    },
-    {
-      id: 8,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Doces'
-    },
-    {
-      id: 9,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Doces'
-    },
-    {
-      id: 10,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Doces'
-    },
-    {
-      id: 11,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pizza'
-    },
-    {
-      id: 12,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pizza'
-    },
-    {
-      id: 13,
-      nome: 'Cinnamon Roll',
-      valor: 9.50,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pizza'
-    },
-    {
-      id: 14,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pizza'
-    },
-    {
-      id: 15,
-      nome: 'Cinnamon Roll',
-      valor: 9,
-      descricao: 'pãezinhos enrolados com canela e açúcar, cobertos com glacê amanteigado e cremoso',
-      categoria: 'Pizza'
+    if(req.method === 'POST'){
+
+      const data = req.body;
+      var message;
+
+      try{
+        const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/laportes?retryWrites=true&w=majority');
+        const db = client.db();
+
+        const cardapioCollenction = db.collection('cardapio');
+
+        if(data.id){
+          const updateProduto = await cardapioCollenction.updateOne({ _id: ObjectId(data.id) }, { $set: data })
+          message = 'Produto atualizado';
+        }else{
+          const result = await cardapioCollenction.insertOne(data);
+          message = 'Produto inserido';
+        }
+        
+        client.close();
+
+        res.status(201).json({ message });
+      }catch(e){
+        console.log('cardapioApi error: '+ e);
+      }
     }
-  ]
 
-  // const categoryProductsList = products.reduce((groups, item) => {
-  //   const group = (groups[item.categoria] || []);
-  //   console.log('group');
-  //   console.log(group);
-  //   group.push(item);
-  //   console.log('groups[item.categoria]');
-  //   console.log(groups[item.categoria]);
-  //   groups[item.categoria] = group;
-  //   return groups;
-  // }, {});
+    if(req.method === 'GET'){
 
-  function groupByArray(xs, key) { return xs.reduce(function (rv, x) { let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); if (el) { el.values.push(x); } else { rv.push({ key: v, values: [x] }); } return rv; }, []); }
+    try{
+      const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/laportes?retryWrites=true&w=majority');
+      const db = client.db();
 
-  const categoryProductsList = groupByArray(products, 'categoria');
+      const cardapioCollenction = db.collection('cardapio');
 
-  res.status(200).json([
-    categoryProductsList
-  ])
+      const cardapio = await cardapioCollenction.find().toArray();
+
+      client.close();
+
+      function groupByArray(xs, key) { return xs.reduce(function (rv, x) { let v = key instanceof Function ? key(x) : x[key]; let el = rv.find((r) => r && r.key === v); if (el) { el.values.push(x); } else { rv.push({ key: v, values: [x] }); } return rv; }, []); }
+
+      const categoryProductsList = groupByArray(cardapio, 'categoria');
+
+      res.status(200).json([
+        categoryProductsList
+      ])
+
+    }catch(e){
+      console.log('cardapioApi error: '+ e);
+    }
+  }
 }

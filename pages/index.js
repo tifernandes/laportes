@@ -4,8 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Form, Input  } from 'antd';
-import { FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import { useState } from 'react'
+import InputMask from 'react-input-mask';
 
 const Index = () => {
     
@@ -141,6 +141,19 @@ const Index = () => {
                                     // initialValue={data.email ? data.email : ''}
                                 >
                                     <Input />
+                                </Form.Item>
+
+                                <Form.Item
+                                    label="Celular / WhatsApp"
+                                    name="celular"
+                                    rules={[
+                                        { required: true, min: 15, message: 'Favor informar seu celular.' }
+                                    ]}
+                                    // initialValue={data.phone ? data.phone : ''}
+                                >
+                                    <InputMask maskChar={null} mask="(99) 99999-9999">
+                                        {(inputProps) => <Input {...inputProps} />}
+                                    </InputMask>
                                 </Form.Item>
 
                                 <Form.Item

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 // import AuthContext from '../context/authContext';
-import { RiseOutlined, HomeOutlined, BarChartOutlined, InstagramOutlined, QuestionCircleOutlined , RobotOutlined, MenuUnfoldOutlined, DollarOutlined, ReadOutlined, VideoCameraOutlined} from '@ant-design/icons';
+import { ShopOutlined, HomeOutlined, ShoppingCartOutlined, TeamOutlined, QuestionCircleOutlined , RobotOutlined, MenuUnfoldOutlined, DollarOutlined, ReadOutlined, VideoCameraOutlined} from '@ant-design/icons';
 import { Layout, Menu, Drawer, Modal, Button } from 'antd';
 // import { withRouter, useHistory } from 'react-router-dom';
 // import UserTools from './userTools';
@@ -70,19 +70,19 @@ const LayoutAdmin = ({ children }) => {
                         </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/produtos" icon={<BarChartOutlined />}> 
+                    <Menu.Item key="/admin/produtos" icon={<ShopOutlined />}> 
                         <Link href="/admin/produtos">
                             <a>Produtos</a>
                         </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/pedidos" icon={<BarChartOutlined />}> 
+                    <Menu.Item key="/admin/pedidos" icon={<ShoppingCartOutlined />}> 
                         <Link href="/admin/pedidos">
                             <a>Pedidos</a>
                         </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/clientes" icon={<BarChartOutlined />}> 
+                    <Menu.Item key="/admin/clientes" icon={<TeamOutlined />}> 
                         <Link href="/admin/clientes">
                             <a>Clientes</a>
                         </Link>

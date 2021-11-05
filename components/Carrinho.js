@@ -90,7 +90,6 @@ const Carrinho = (props) => {
         setQtItemsCarrinho(carrinhoStorage);
 
         calcTotal();
-
     }
 
     return ( 

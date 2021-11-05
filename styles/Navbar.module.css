@@ -32,14 +32,14 @@
   @apply lg:px-5 px-5;
 }
 
-.navbar a,
+.desktop a,
 .navbarFixed a{
   font-size: 16px;
   text-transform: uppercase;
   transition: 0.3s ease;
 }
 
-.navbar a:hover,
+.desktop a:hover,
 .navbarFixed a:hover{
   /* border-top: 4px solid #ffffff; */
   border-bottom: 4px solid #ffffff;

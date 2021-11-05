@@ -1,5 +1,4 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { Modal } from 'antd';
 
 const AuthContext = createContext({signed: Boolean, user: Object, loading: Boolean, entrar: () => {}, sair: () => {} })
 
@@ -7,7 +6,6 @@ export const AuthProvider = ({ children }) => {
     // const [storageUser, setStorageUser, removeStorageUser] = useLocalStorage('@authApp: user');
     const [signed, setSigned] = useState('');
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(true);
 
     //verifica se ja existe token
     useEffect(() => {
@@ -34,21 +32,6 @@ export const AuthProvider = ({ children }) => {
         // }
     }
 
-    const ModalCmp = () => {
-        return (
-            <Modal title="Prezado Cliente" visible={showModal} footer={null} onCancel={() => setShowModal(false)}>
-                <p>No dia do aniversário, o aniversariante ganha R$50 em sua comanda</p>
-                <br/>
-                <p>Regras:</p>
-                <p>-Mínimo de seis pessoas na mesa</p>
-                <p>-Apresentação de documento com foto</p>
-                <p>OBS: Sem o documento o desconto não se aplica</p>
-                <br/>
-                <p>Agradecemos a preferência</p>
-            </Modal>
-        )
-    }
-
     function sair(){
         // setLoading(true)
         // removeStorageUser()
@@ -59,7 +42,6 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ signed, loading, sair}}>
-            <ModalCmp />
             {children}
         </AuthContext.Provider>
     )
