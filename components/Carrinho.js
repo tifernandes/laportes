@@ -1,9 +1,11 @@
-import { Drawer } from 'antd';
 import { useState, useEffect } from 'react';
 import styles from '../styles/Carrinho.module.css'
-import { Form, Input, Select, Collapse  } from 'antd';
+import { Form, Input, Select, Collapse } from 'antd';
 import InputMask from 'react-input-mask';
 import { MinusOutlined, PlusOutlined, LoadingOutlined, WhatsAppOutlined, CaretRightOutlined } from '@ant-design/icons';
+import moment from 'moment';
+import 'moment/locale/pt-br';
+import axios from "axios";
 
 const { Option } = Select;
 const { Panel } = Collapse;
@@ -11,28 +13,36 @@ const { Panel } = Collapse;
 const Carrinho = (props) => {
 
     const [visibleConcluir, setVisibleConcluir] = useState({display: 'none'});
-    const [resumoPedido, setResumoPedido] = useState([]);
+    const [resumoPedido, setResumoPedido] = useState([{pedido: []}]);
     const [visibleRealizado, setVisibleRealizado] = useState({display: 'none'});
     const [visibleCarrinho, setvisibleCarrinho] = useState({display: 'flex'});
     const [totalCarrinho, setTotalCarrinho] = useState(0);
     const [carrinho, setCarrinho] = useState([]);
     const [qtItemsCarrinho, setQtItemsCarrinho] = useState([]);
-    const [reloadApis, setreloadApis] = useState(false);    
+    const [reloadApis, setreloadApis] = useState(false);
 
     useEffect(() => {
         var carrinhoStorage = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
         var pedidoFeito = JSON.parse(localStorage.getItem('didOrder'));
         
-        if(pedidoFeito){
+        const pedidoApi = async () => {
+            const resPedidosApi = await axios.get(`/api/pedidosAPI?_id=${pedidoFeito._id}`);
+            console.log(resPedidosApi);
+
+            setResumoPedido(resPedidosApi.data);
+
             setvisibleCarrinho({display: 'none'})
             setVisibleConcluir({display: 'none'})
             setVisibleRealizado({display: 'flex'})
         }
 
+        if(pedidoFeito){
+            pedidoApi();
+        }
+
         setQtItemsCarrinho(carrinhoStorage);
         setCarrinho(props.carrinho);
         calcTotal();
-
     }, [props.carrinho])
 
     const calcTotal = () => {
@@ -40,7 +50,7 @@ const Carrinho = (props) => {
 
         var total = 0;
         props.carrinho.map((item, i) => {
-            const qtItem = carrinhoStorage.find(x => x.id === item.id).qt;
+            const qtItem = carrinhoStorage.find(x => x.id === item._id).qt;
             total += (qtItem*item.valor)
         })
 
@@ -59,20 +69,53 @@ const Carrinho = (props) => {
         }
     }
 
-    const finalizarPedido = values => {
+    const finalizarPedido = async values => {
 
         carrinho.map((item, i) => {
-            const findItem = qtItemsCarrinho.find(x => x.id === item.id).qt;
+            const findItem = qtItemsCarrinho.find(x => x.id === item._id).qt;
             item.qt = findItem;
         })
 
-        setResumoPedido(carrinho)
+        setResumoPedido([{values, pedido: carrinho}])
 
-        localStorage.setItem('didOrder', JSON.stringify({id: '123'}));
+const pedidoWhats = 
+`*Novo pedido solicitado:*
+---------------------------------------
 
-        setvisibleCarrinho({display: 'none'})
-        setVisibleConcluir({display: 'none'})
-        setVisibleRealizado({display: 'flex'})
+${carrinho.map((cr, x) => `*${cr.qt}x ${cr.nome}* \n`).join('')}
+${values.obs ? `_Obs: ${values.obs}_` : ``}
+        
+*Total:* R$ ${totalCarrinho}
+        
+---------------------------------------
+        
+*Pedido para ${(values.entrega).toLowerCase()}*
+
+*${values.nomeCompleto}*
+${values.celular}
+
+_Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
+`;
+        
+        const valueLinkWAPP = encodeURI(pedidoWhats).replace('%20','+');
+        const url = 'https://web.whatsapp.com/send?phone=5511956104607&text='+valueLinkWAPP
+        localStorage.setItem('zapolaMSG', JSON.stringify(url));
+        window.open(url, '_ blank');
+
+        values.data = moment().format();
+        values.pedido = carrinho;
+        const resPedidosApi = await axios.post(`/api/pedidosAPI`, values);
+
+        if(resPedidosApi.data.message == 'Pedido enviado'){
+            localStorage.setItem('didOrder', JSON.stringify({_id: resPedidosApi.data._id}));
+
+            setvisibleCarrinho({display: 'none'})
+            setVisibleConcluir({display: 'none'})
+            setVisibleRealizado({display: 'flex'})
+        }else{
+            alert('Problema ao cadastrar o pedido.')
+        }
+
     }
 
     const handleQT = async (type, idItem) => {
@@ -92,6 +135,12 @@ const Carrinho = (props) => {
         calcTotal();
     }
 
+    const handleEnviarZap = () => {
+        const url = JSON.parse(localStorage.getItem('zapolaMSG')) || [];
+        window.open(url, '_ blank');
+        console.log(url);
+    }
+
     return ( 
         <>
             <div style={visibleCarrinho} className={styles.carrinho}>
@@ -102,9 +151,9 @@ const Carrinho = (props) => {
                             return (
                                     <div key={i} className={styles.produto}>
                                         <div className="flex gap-2 items-center">
-                                            <PlusOutlined onClick={() => handleQT('plus', item.id)} className="cursor-pointer" />
-                                            {qtItemsCarrinho.find(x => x.id === item.id).qt}x
-                                            <MinusOutlined onClick={() => handleQT('minus', item.id)} className="cursor-pointer" />
+                                            <PlusOutlined onClick={() => handleQT('plus', item._id)} className="cursor-pointer" />
+                                            {qtItemsCarrinho.find(x => x.id === item._id).qt}x
+                                            <MinusOutlined onClick={() => handleQT('minus', item._id)} className="cursor-pointer" />
                                         </div>
                                         <h2 className={styles.nomeProduto}>{item.nome}</h2>
                                         <h2>R$ {item.valor}</h2>
@@ -173,9 +222,10 @@ const Carrinho = (props) => {
                         <Form.Item
                             label="Escolha uma opção:"
                             name="entrega"
+                            valuePropName="option"
+                            initialValue="Retirada no local"
                         >
-
-                            <Select defaultValue="Retirada no local">
+                            <Select defaultValue="retirada no local">
                                 <Option value="retirada no local">Retirada no local</Option>
                             </Select>
                         </Form.Item>
@@ -204,21 +254,14 @@ const Carrinho = (props) => {
                 <div className="flex flex-col h-full">
                     <h3 className="text-6xl text-center">Pedido Realizado</h3>
                     <div className={styles.pedidoConfirmado}>
-                        {/* <h4 className="text-xl text-center">Obrigado !</h4> */}
-                        <div className={styles.subcontainerPedido}>
-                            <LoadingOutlined />
-                            <div>
-                            <p>Pedido em preparo...</p>
-                            <p className={styles.previsao}>Previsão: 20 ~ 30 min</p>
-                            </div>
-                        </div>
                         <Collapse
                             bordered={false}
                             expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
                             className="site-collapse-custom-collapse w-full"
                         >
                             <Panel header="Ver resumo do pedido" key="1" className="site-collapse-custom-panel">
-                                {resumoPedido.map((item, x) => {
+                                <p>Itens</p>
+                                {resumoPedido[0].pedido.map((item, x) => {
                                     return (
                                         <div key={x} className={styles.resumoPedido}>
                                             <p>{item.qt}x</p>
@@ -233,7 +276,8 @@ const Carrinho = (props) => {
                                 </div>
                             </Panel>
                         </Collapse>
-                        <div className={styles.iniciarConversa}>
+                        <p>Teve problemas para enviar seu pedido para o WhatsApp?</p>
+                        <div onClick={handleEnviarZap} className={styles.iniciarConversa}>
                             <WhatsAppOutlined />
                             <p>Iniciar Conversa</p>
                         </div>

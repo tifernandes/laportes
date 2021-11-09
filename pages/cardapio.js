@@ -193,10 +193,10 @@ const Cardapio = ({ payload }) => {
                                                         <h2>R$ {prd.valor}</h2>
                                                     </div>
                                                     <div className={styles.actions}>
-                                                        {cart.findIndex(x => x.id == prd.id) > -1 ? 
-                                                            <h2 onClick={() => handleCarrinho((prd.id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
+                                                        {cart.findIndex(x => x.id == prd._id) > -1 ? 
+                                                            <h2 onClick={() => handleCarrinho((prd._id).toString())} className={styles.buttonCartremove}><MinusOutlined  /></h2>
                                                             :
-                                                            <h2 onClick={() => handleCarrinho((prd.id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
+                                                            <h2 onClick={() => handleCarrinho((prd._id).toString())} className={styles.buttonCartadd}><PlusOutlined  /></h2>
                                                         }
                                                     </div>
                                                 </div>

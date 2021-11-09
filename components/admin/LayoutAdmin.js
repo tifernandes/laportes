@@ -76,7 +76,7 @@ const LayoutAdmin = ({ children }) => {
                         </Link>
                     </Menu.Item>
 
-                    <Menu.Item key="/admin/pedidos" icon={<ShoppingCartOutlined />}> 
+                    {/* <Menu.Item key="/admin/pedidos" icon={<ShoppingCartOutlined />}> 
                         <Link href="/admin/pedidos">
                             <a>Pedidos</a>
                         </Link>
@@ -86,7 +86,7 @@ const LayoutAdmin = ({ children }) => {
                         <Link href="/admin/clientes">
                             <a>Clientes</a>
                         </Link>
-                    </Menu.Item>
+                    </Menu.Item> */}
                 </Menu>
             </>
         )
