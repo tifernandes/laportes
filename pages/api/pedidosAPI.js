@@ -7,7 +7,6 @@ export default async function (req, res) {
     if(req.method === 'POST'){
 
       const data = req.body;
-      console.log(data);
       var message;
 
       try{
@@ -17,9 +16,6 @@ export default async function (req, res) {
         const pedidoCollenction = db.collection('pedidos');
 
         const result = await pedidoCollenction.insertOne(data);
-        console.log(result);
-        console.log(result.insertedId);
-
         message = 'Pedido enviado';
         
         client.close();

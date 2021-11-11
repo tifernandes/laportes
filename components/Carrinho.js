@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import styles from '../styles/Carrinho.module.css'
-import { Form, Input, Select, Collapse } from 'antd';
+import { Form, Input, Select, Collapse, Spin } from 'antd';
 import InputMask from 'react-input-mask';
 import { MinusOutlined, PlusOutlined, LoadingOutlined, WhatsAppOutlined, CaretRightOutlined } from '@ant-design/icons';
 import moment from 'moment';
@@ -20,6 +20,7 @@ const Carrinho = (props) => {
     const [carrinho, setCarrinho] = useState([]);
     const [qtItemsCarrinho, setQtItemsCarrinho] = useState([]);
     const [isMobile, setisMobile] = useState(false);
+    const [loading, setLoading ] = useState(true);
     const [reloadApis, setreloadApis] = useState(false);
 
     useEffect(() => {
@@ -39,10 +40,14 @@ const Carrinho = (props) => {
             setvisibleCarrinho({display: 'none'})
             setVisibleConcluir({display: 'none'})
             setVisibleRealizado({display: 'flex'})
+
+            setLoading(false)
         }
 
         if(pedidoFeito){
             pedidoApi();
+        }else{
+            setLoading(false);
         }
 
         setQtItemsCarrinho(carrinhoStorage);
@@ -163,7 +168,19 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
         window.open(url, '_ blank');
     }
 
+    const LoadingCmp = () => {
+        return (
+            <div style={{display: 'flex', height: '65vh', justifyContent: 'center', alignItems: 'center'}}>
+                <Spin size='large' indicator={<LoadingOutlined style={{ fontSize: 35, color: '#c07e20' }} spin />} />
+            </div>
+        )
+    }
+
     return ( 
+        <>
+        {loading ? 
+            <LoadingCmp />
+        :
         <>
             <div style={visibleCarrinho} className={styles.carrinho}>
                 <div className="flex flex-col h-full justify-between">
@@ -307,6 +324,8 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                     </div>
                     </div>
             </div>
+        </>
+        }
         </>
      );
 }
