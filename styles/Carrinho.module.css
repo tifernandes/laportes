@@ -110,4 +110,50 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.concluir {
+    width: 100%;
+    display: flex;
+    padding: 5px;
+    gap: 8px;
+    font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.carrinhoVazio {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: auto;
+    height: calc(90% - 160px);
+    text-align: center;
+}
+
+.circle {
+    width: 140px;
+    height: 140px;
+    background: #EAAB51; 
+    -moz-border-radius: 70px; 
+    -webkit-border-radius: 70px; 
+    border-radius: 70px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    z-index: -1;
+}
+
+.carrinhoVazio p {
+    font-size: 18px;
+}
+
+.carrinhoVazio span {
+    font-size: 50px;
+    margin-bottom: 10px;
 }

@@ -34,6 +34,7 @@ const Cardapio = ({ payload }) => {
         async function getProdutos(){
             const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
             const cardapioApi = await axios.get(`${endPoint}/api/cardapioAPI`);
+
             var categoria = [];
             var produtos = [];
 
@@ -48,14 +49,14 @@ const Cardapio = ({ payload }) => {
 
             let categoriasUnicas = [...new Set(categoria)];
 
-            setCategorias(categoriasUnicas);
+            setCategorias(categoriasUnicas.sort());
             setProdutos(produtos);
 
             setLoading(false) 
         }
 
         getProdutos();
-    }, [visible])
+    }, [])
 
     const carrinhoShow = () => {
         if(!visible){
@@ -92,11 +93,12 @@ const Cardapio = ({ payload }) => {
 
     const handleSelect = (value) => {
 
-        jump(`#${value}`, {
+        const node = document.getElementsByName(value)[0]
+
+        jump(node, {
             duration: 500,
             offset: -145
         })
-
     }
 
     const handleScroll = () => {
@@ -142,7 +144,7 @@ const Cardapio = ({ payload }) => {
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         </Head>
         <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={carrinhoShow} visible={visible}>
-            <Carrinho carrinho={cartItems} />
+            <Carrinho carrinho={cartItems} setVisible={setVisible} />
         </Drawer>
         {categoriaFixed ?
             <div className={styles.categoriaContainerFixed}>
@@ -155,15 +157,9 @@ const Cardapio = ({ payload }) => {
         }
         <div className={styles.navbar}></div>
         <div onClick={carrinhoShow} className={styles.carrinho}>
-            {pedidoRealizado ?
-                <Badge className={styles.carrinhoIcon}>
-                    <CarryOutOutlined />
-                </Badge>
-            : 
-                <Badge className={styles.carrinhoIcon} count={cart ? cart.length : 0}>
-                    <ShoppingCartOutlined />
-                </Badge>
-            }
+            <Badge className={styles.carrinhoIcon} count={cart ? cart.length : 0}>
+                <ShoppingCartOutlined />
+            </Badge>
         </div>
         <div className={styles.container}>
             {!categoriaFixed ?
@@ -180,7 +176,7 @@ const Cardapio = ({ payload }) => {
                 <>
                     {categorias.map((categoria, x) => {
                         return (
-                            <div key={x} id={categoria} className={styles.categoria}>
+                            <div key={x} name={categoria} className={styles.categoria}>
                                 <h1 className={styles.categoriaTitle}><span>{categoria}</span></h1>
                                 {produtos.map((prd, x) => {
                                     return prd.categoria.map((ct, y) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Table, Button, Input, Modal, Spin, Space, Form, Collapse, Typography, InputNumber, notification, Select, Tag } from 'antd';
 import { PlusOutlined, FlagOutlined, LoadingOutlined, CheckOutlined, CloseOutlined, CheckCircleOutlined, WarningOutlined} from '@ant-design/icons';
-import moment from 'moment';
 import 'moment/locale/pt-br';
 import axios from "axios";
 

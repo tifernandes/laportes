@@ -2,11 +2,26 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import styles from '../styles/Layout.module.css'
 import { Modal } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import moment from 'moment';
 
 const Layout = ({ children }) => {
 
-    const [showModal, setShowModal] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        var popupStorage = JSON.parse(localStorage.getItem('popUp')) || [];
+
+        if(popupStorage.length == 0){
+            setShowModal(true)
+            localStorage.setItem('popUp', JSON.stringify(moment().format()));
+        }else{
+            if(moment().subtract(1, 'days').format() > moment(popupStorage).format()){
+                setShowModal(true)
+            }
+        }
+        
+    }, {})
 
     const ModalCmp = () => {
         return (

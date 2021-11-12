@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from '../styles/Carrinho.module.css'
 import { Form, Input, Select, Collapse, Spin } from 'antd';
 import InputMask from 'react-input-mask';
-import { MinusOutlined, PlusOutlined, LoadingOutlined, WhatsAppOutlined, CaretRightOutlined } from '@ant-design/icons';
+import { MinusOutlined, PlusOutlined, LoadingOutlined, WhatsAppOutlined, CaretRightOutlined, CheckOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import axios from "axios";
@@ -168,6 +168,15 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
         window.open(url, '_ blank');
     }
 
+    const handleConcluirPedido = () => {
+        localStorage.removeItem('didOrder');
+        props.setVisible(false);
+
+        setvisibleCarrinho({display: 'flex'})
+        setVisibleConcluir({display: 'none'})
+        setVisibleRealizado({display: 'none'})
+    }
+
     const LoadingCmp = () => {
         return (
             <div style={{display: 'flex', height: '65vh', justifyContent: 'center', alignItems: 'center'}}>
@@ -185,9 +194,11 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
             <div style={visibleCarrinho} className={styles.carrinho}>
                 <div className="flex flex-col h-full justify-between">
                     <h3 className="text-6xl text-center">Carrinho</h3>
-                    <div className={styles.produtos}>
-                        {carrinho.map((item, i) => {
-                            return (
+                    {carrinho.length > 0 ? 
+                        <> 
+                        <div className={styles.produtos}>
+                            {carrinho.map((item, i) => {
+                                return (
                                     <div key={i} className={styles.produto}>
                                         <div className="flex gap-2 items-center">
                                             <PlusOutlined onClick={() => handleQT('plus', item._id)} className="cursor-pointer" />
@@ -197,17 +208,25 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                                         <h2 className={styles.nomeProduto}>{item.nome}</h2>
                                         <h2>R$ {item.valor}</h2>
                                     </div>
-                            )
-                        })
-                        }
-                    </div>
-                    <div>
-                        <div className="flex justify-between text-xl">
-                            <h1>Total</h1>
-                            <h1>R$ {totalCarrinho}</h1>
+                                )
+                            })
+                            }
                         </div>
-                        <button onClick={() => fazerPedidoShow('Concluir')}>Fazer Pedido</button>
-                    </div>
+                        <div>
+                            <div className="flex justify-between text-xl">
+                                <h1>Total</h1>
+                                <h1>R$ {totalCarrinho}</h1>
+                            </div>
+                            <button onClick={() => fazerPedidoShow('Concluir')}>Fazer Pedido</button>
+                        </div>
+                    </>
+                    : 
+                    <div className={styles.carrinhoVazio}>
+                        <div className={styles.circle}></div>
+                        <ShoppingCartOutlined />
+                        <p>Ops... Carrinho vazio</p>
+                    </div> 
+                    }
                 </div>
             </div>
             <div style={visibleConcluir} className={styles.fazerPedido}>
@@ -293,7 +312,10 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                 <div className="flex flex-col h-full">
                     <h3 className="text-6xl text-center">Pedido Realizado</h3>
                     <div className={styles.pedidoConfirmado}>
-                        <p>Obrigado pelo pedido {resumoPedido[0].nomeCompleto} !</p>
+                        <div>
+                            <p>Obrigado pelo pedido !</p>
+                            <p><span className="text-gray-400 italic">Último pedido em {moment(resumoPedido[0].data).format('LLL')}</span></p>
+                        </div>
                         <Collapse
                             bordered={false}
                             expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
@@ -320,6 +342,10 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                         <div onClick={handleEnviarZap} className={styles.iniciarConversa}>
                             <WhatsAppOutlined />
                             <p>Iniciar Conversa</p>
+                        </div>
+                        <div className={styles.concluir} onClick={handleConcluirPedido}>
+                            <CheckOutlined />
+                            Concluir pedido
                         </div>
                     </div>
                     </div>
