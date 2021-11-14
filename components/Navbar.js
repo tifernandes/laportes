@@ -1,13 +1,16 @@
 import styles from '../styles/Navbar.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { MenuOutlined, FacebookOutlined, InstagramOutlined } from '@ant-design/icons';
 import MobileMenu from './MobileMenu';
 import jump from 'jump.js'
 import { useRouter } from 'next/router'
+import AuthContext from '../context/authContext';
 
 const Navbar = () => {
+
+    const { setShowCarrinho, pedidoShow, setPedidoShow } = useContext(AuthContext);
 
     const router = useRouter()
     const [visible, setVisible] = useState(false);
@@ -44,10 +47,13 @@ const Navbar = () => {
         window.addEventListener("scroll", handleScroll);
 
         var lgpdCheck = localStorage.getItem('lgpd') || [];
+        var checkPedido = localStorage.getItem('didOrder') || [];
         
         if(lgpdCheck == 'accepted'){
             setLgpd(false);
         }
+
+        if(checkPedido.length > 0) setPedidoShow(true);
 
     }, []);
 
@@ -112,14 +118,30 @@ const Navbar = () => {
                     </div>
                 </div>
                 : 
-                <div className={styles.navbar}>
-                    <div className={styles.content}>
-                        {/* <div className={styles.warning}>
-                            <h4>Seja bem vindo !</h4>
-                        </div> */}
-                        <ContentMenu />
+                <>
+                    {pedidoShow ? 
+                        <div className={styles.warning}>
+                            <h4>Você possui um pedido em aberto. 
+                                <span 
+                                onClick={() => {
+                                    setShowCarrinho(true)
+                                    router.push('/cardapio')
+                                }}
+                                className="ml-4"
+                                >
+                                    VER PEDIDO
+                                </span>
+                            </h4>
+                        </div>
+                    : 
+                        <></>
+                    }
+                    <div className={styles.navbar}>
+                        <div className={styles.content}>
+                            <ContentMenu />
+                        </div>
                     </div>
-                </div>
+                </>
             }
             <div className={styles.divisor}></div>
             <div className={styles.lgpd} style={{display: lgpd ? 'block' : 'none' }}>

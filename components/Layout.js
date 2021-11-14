@@ -18,6 +18,7 @@ const Layout = ({ children }) => {
         }else{
             if(moment().subtract(1, 'days').format() > moment(popupStorage).format()){
                 setShowModal(true)
+                localStorage.setItem('popUp', JSON.stringify(moment().format()));
             }
         }
         

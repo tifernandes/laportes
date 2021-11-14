@@ -1,11 +1,13 @@
 import React, { createContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext({signed: Boolean, user: Object, loading: Boolean, entrar: () => {}, sair: () => {} })
+const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     // const [storageUser, setStorageUser, removeStorageUser] = useLocalStorage('@authApp: user');
     const [signed, setSigned] = useState('');
     const [loading, setLoading] = useState(true);
+    const [showCarrinho, setShowCarrinho] = useState(false);
+    const [pedidoShow, setPedidoShow] = useState(false);
 
     //verifica se ja existe token
     useEffect(() => {
@@ -41,7 +43,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ signed, loading, sair}}>
+        <AuthContext.Provider value={{ showCarrinho, setShowCarrinho, setLoading, loading, pedidoShow, setPedidoShow}}>
             {children}
         </AuthContext.Provider>
     )

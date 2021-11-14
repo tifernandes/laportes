@@ -11,7 +11,7 @@ import { AuthProvider } from '../context/authContext';
 function MyApp({ Component, pageProps, router }){
 
   const LoadingCmp = () => {
-    const { signed, loading, user } = useContext(AuthContext);
+    const { loading } = useContext(AuthContext);
 
     if(loading){
       return (

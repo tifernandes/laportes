@@ -12,7 +12,8 @@ const { Option } = Select;
 
 const Cardapio = ({ payload }) => {
 
-    const [visible, setVisible] = useState(false);
+    const { setShowCarrinho, showCarrinho } = useContext(AuthContext);
+
     const [cart, setCart] = useState([]);
     const [loading, setLoading ] = useState(true);
     const [cartItems, setCartItems] = useState([]);
@@ -59,7 +60,7 @@ const Cardapio = ({ payload }) => {
     }, [])
 
     const carrinhoShow = () => {
-        if(!visible){
+        if(!showCarrinho){
 
             var filterCart = produtos.filter(function(e) {
                 return cart.findIndex(x => x.id == e._id) !== -1
@@ -68,27 +69,31 @@ const Cardapio = ({ payload }) => {
             setCartItems(filterCart);
         }
 
-        setVisible(!visible);
+        setShowCarrinho(!showCarrinho);
     };
 
     const handleCarrinho = (prdID) => {
         var carrinho = JSON.parse(localStorage.getItem('prdcrtLaportes')) || [];
 
-        //verifica se existe algo no carrinho
-        if(carrinho.length > 0){
-            const prd = carrinho.findIndex(x => x.id == prdID);
-            //verifica se ja existe o item no carrinho
-            if(prd > -1){
-                carrinho.splice(prd, 1);
+        if(!pedidoRealizado){
+            //verifica se existe algo no carrinho
+            if(carrinho.length > 0){
+                const prd = carrinho.findIndex(x => x.id == prdID);
+                //verifica se ja existe o item no carrinho
+                if(prd > -1){
+                    carrinho.splice(prd, 1);
+                }else{
+                    carrinho.push({"id": prdID, "qt": 1});
+                }
             }else{
                 carrinho.push({"id": prdID, "qt": 1});
             }
-        }else{
-            carrinho.push({"id": prdID, "qt": 1});
-        }
 
-        localStorage.setItem('prdcrtLaportes', JSON.stringify(carrinho));
-        setCart(carrinho)
+            localStorage.setItem('prdcrtLaportes', JSON.stringify(carrinho));
+            setCart(carrinho)
+        }else{
+            alert('Não é possivel adicionar ou remover itens no carrinho com um pedido em aberto.')
+        }
     }
 
     const handleSelect = (value) => {
@@ -143,8 +148,8 @@ const Cardapio = ({ payload }) => {
             <link rel="icon" href="/favicon.ico" /> 
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         </Head>
-        <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={carrinhoShow} visible={visible}>
-            <Carrinho carrinho={cartItems} setVisible={setVisible} />
+        <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={carrinhoShow} visible={showCarrinho}>
+            <Carrinho carrinho={cartItems} setShowCarrinho={setShowCarrinho} />
         </Drawer>
         {categoriaFixed ?
             <div className={styles.categoriaContainerFixed}>

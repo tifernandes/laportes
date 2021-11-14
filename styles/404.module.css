@@ -1,0 +1,22 @@
+.navbar {
+    width: 100%;
+    background-color: red;
+    height: 240px;
+    background: url(/bgCardapio.jpg) no-repeat;
+    background-size: cover;
+    border-bottom-left-radius: 20%;
+    border-bottom-right-radius: 20%;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    height: auto;
+    font-family: 'Urbanist', sans-serif;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.container div {
+    padding: 270px 0px 270px 0px;
+}

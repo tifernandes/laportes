@@ -1,6 +1,16 @@
+import styles from '../styles/404.module.css'
+
 const PageNotFound = () => {
     return ( 
-        <h1>Página não encontrada</h1>
+        <>
+            <div className={styles.navbar}></div>
+            <div className={styles.container}>
+                <div>
+                    <h1>Desculpe...</h1>
+                    <h1>A Página socilitada não foi encontrada</h1>
+                </div>
+            </div>
+        </>
      );
 }
  

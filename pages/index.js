@@ -45,7 +45,11 @@ const Index = () => {
                     <h3>A tradição dos sabores</h3>
                     <div className={styles.divisor}></div>
                     <div className="hidden lg:block">
-                        <p>Conheça mais sobre os quase 40 anos de tradição do Laportes</p>
+                        <p>Conheça mais sobre os quase 40 anos de tradição do Laportes nas redes sociais</p>
+                        <br/>
+                        <p>Instagram</p>
+                        <p>Facebook</p>
+                        <p>TikTok</p>
                         {/* <script src="https://apps.elfsight.com/p/platform.js" defer></script>
                         <div className="elfsight-app-4d1ce926-983e-4727-aad0-5073348fb2e7 w-full"></div> */}
                     </div>

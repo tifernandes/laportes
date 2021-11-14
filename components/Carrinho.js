@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import styles from '../styles/Carrinho.module.css'
 import { Form, Input, Select, Collapse, Spin } from 'antd';
 import InputMask from 'react-input-mask';
@@ -6,11 +6,14 @@ import { MinusOutlined, PlusOutlined, LoadingOutlined, WhatsAppOutlined, CaretRi
 import moment from 'moment';
 import 'moment/locale/pt-br';
 import axios from "axios";
+import AuthContext from '../context/authContext';
 
 const { Option } = Select;
 const { Panel } = Collapse;
 
 const Carrinho = (props) => {
+
+    const { setPedidoShow } = useContext(AuthContext);
 
     const [visibleConcluir, setVisibleConcluir] = useState({display: 'none'});
     const [resumoPedido, setResumoPedido] = useState([{pedido: []}]);
@@ -127,6 +130,9 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
         if(resPedidosApi.data.message == 'Pedido enviado'){
             localStorage.setItem('didOrder', JSON.stringify({_id: resPedidosApi.data._id}));
 
+            //aviso pedido existente
+            setPedidoShow(true);
+
             setvisibleCarrinho({display: 'none'})
             setVisibleConcluir({display: 'none'})
             setVisibleRealizado({display: 'flex'})
@@ -170,11 +176,12 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
 
     const handleConcluirPedido = () => {
         localStorage.removeItem('didOrder');
-        props.setVisible(false);
+        props.setShowCarrinho(false);
 
         setvisibleCarrinho({display: 'flex'})
         setVisibleConcluir({display: 'none'})
         setVisibleRealizado({display: 'none'})
+        setPedidoShow(false)
     }
 
     const LoadingCmp = () => {
