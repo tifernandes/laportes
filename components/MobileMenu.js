@@ -17,14 +17,6 @@ const MobileMenu = (props) => {
                 </Link>
                 <a onClick={() => props.scrollSmooth('unidades')}>Unidades</a>
                 <a onClick={() => props.scrollSmooth('contato')}>Contato</a>
-                <div className="flex text-3xl gap-x-10">
-                    <Link href="https://www.instagram.com/laportescompany/">
-                        <a target="_blank"><FacebookOutlined className="cursor-pointer" /></a>
-                    </Link>
-                    <Link href="https://web.facebook.com/restaurantelaportes">
-                        <a target="_blank"><InstagramOutlined className="cursor-pointer" /></a>
-                    </Link>
-                </div>
             </div>
         </Drawer>
      );

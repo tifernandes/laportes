@@ -6,6 +6,8 @@ import Head from 'next/head'
 import { Form, Input  } from 'antd';
 import { useState } from 'react'
 import InputMask from 'react-input-mask';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebookF, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons'
 
 const Index = () => {
     
@@ -44,14 +46,18 @@ const Index = () => {
                 <div id="historia" className={styles.historia}>
                     <h3>A tradição dos sabores</h3>
                     <div className={styles.divisor}></div>
-                    <div className="hidden lg:block">
+                    <div className="hidden lg:block p-5">
                         <p>Conheça mais sobre os quase 40 anos de tradição do Laportes nas redes sociais</p>
                         <br/>
-                        <p>Instagram</p>
-                        <p>Facebook</p>
-                        <p>TikTok</p>
-                        {/* <script src="https://apps.elfsight.com/p/platform.js" defer></script>
-                        <div className="elfsight-app-4d1ce926-983e-4727-aad0-5073348fb2e7 w-full"></div> */}
+                        <Link href="https://web.facebook.com/restaurantelaportes">
+                            <a className={styles.fa} style={{background: '#3B5998'}} target="_blank"><FontAwesomeIcon icon={faFacebookF} /></a>
+                        </Link>
+                        <Link href="https://www.instagram.com/laportescompany/">
+                            <a className={styles.fa} style={{background: '#dd4b39'}} target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
+                        </Link>
+                        <Link href="https://www.instagram.com/laportescompany/">
+                            <a className={styles.fa} style={{background: '#2c4762'}} target="_blank"><FontAwesomeIcon icon={faTiktok} /></a>
+                        </Link>
                     </div>
                     <div className="lg:hidden">
                         <p>O Laportes foi inaugurado em 1982 em Santo André por Marina Laporte, mulher forte que na época criava suas filhas ainda pequenas - Simone, Solange e Debora - sozinha, por conta da morte prematura do marido. Já no princípio, ainda adolescentes, as meninas começaram a ajudar a mãe. A união e trabalho árduo das quatro logo conquistou clientela cativa formada principalmente por empresários e executivos da região que encontraram ali um ambiente prático e agradável associado à culinária variada e de bom gosto que já se revelava neste início. 
