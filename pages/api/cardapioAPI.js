@@ -10,7 +10,7 @@ export default async function (req, res) {
       var message;
 
       try{
-        const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/laportes?retryWrites=true&w=majority');
+        const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/toffee?retryWrites=true&w=majority');
         const db = client.db();
 
         const cardapioCollenction = db.collection('cardapio');
@@ -34,7 +34,7 @@ export default async function (req, res) {
     if(req.method === 'GET'){
 
     try{
-      const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/laportes?retryWrites=true&w=majority');
+      const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/toffee?retryWrites=true&w=majority');
       const db = client.db();
 
       const cardapioCollenction = db.collection('cardapio');

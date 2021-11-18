@@ -29,6 +29,12 @@ function MyApp({ Component, pageProps, router }){
       )
     }
 
+    if(router.pathname.includes('/login')){
+      return (
+        <Component {...pageProps} />
+      )
+    }
+
     return (
       <Layout>
         <Component {...pageProps} />

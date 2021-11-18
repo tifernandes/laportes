@@ -59,6 +59,16 @@ p, a, h1, h2 {
 
 /* Padrão do ant */
 
+.ant-col-16 {
+  flex: 100%;
+  max-width: 100%;
+}
+
+.ant-col-offset-8 {
+  margin-left: 5px;
+  margin-top: 15px;
+}
+
 .ant-form-item {
   display: unset;
   margin-bottom: 10px !important;
