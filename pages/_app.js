@@ -7,6 +7,7 @@ import AuthContext from '../context/authContext';
 import { LoadingOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 import { AuthProvider } from '../context/authContext';
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps, router }){
 
@@ -45,6 +46,12 @@ function MyApp({ Component, pageProps, router }){
   
   return (
     <AuthProvider>
+        <Head>
+          <link
+              rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+          />
+        </Head>
         <LoadingCmp />
     </AuthProvider>
   )

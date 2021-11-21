@@ -169,12 +169,12 @@ const Cardapio = ({ payload }) => {
         <div className={styles.container}>
             {!categoriaFixed ?
                 <div className="pl-4 pr-4">
-                <CategoriaCmp /> 
+                    <CategoriaCmp /> 
                 </div>
             :
                 <></>
             }
-            <div className={styles.produtos}>
+            <div className="animate__animated animate__fadeIn">
                 {loading ? 
                     <LoadingCmp />
                 :

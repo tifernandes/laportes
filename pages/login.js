@@ -4,14 +4,16 @@ import Head from 'next/head'
 import axios from "axios";
 import { useRouter } from 'next/router'
 import {WarningOutlined} from '@ant-design/icons';
+import AuthContext from '../context/authContext';
+import { useContext } from 'react';
 
 const Login = () => {
 
     const router = useRouter()
+    const { entrar } = useContext(AuthContext);
 
     const loginApi = async (values) => {
-        const resultLogin = await axios.post(`/api/loginAPI`, values);
-        console.log(resultLogin);
+        const resultLogin = await entrar(values);
 
         if(resultLogin.data.message == "login success"){
             router.push('/admin')

@@ -8,6 +8,7 @@ import { useState } from 'react'
 import InputMask from 'react-input-mask';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons'
+import 'animate.css'
 
 const Index = () => {
     
@@ -27,7 +28,7 @@ const Index = () => {
             </Head>
             <div className={styles.cardapioContainer}>
                 <div className={styles.cardapio}>
-                    <div>
+                    <div className="animate__animated animate__fadeIn">
                         <h3 className="text-white">A arte da boa cozinha.</h3>
                         <h1 className="lg:text-9xl">Conheça nosso <br /> cardápio</h1>
                         <h2 className="text-white text-xl">E Retire seu pedido</h2>
@@ -35,7 +36,7 @@ const Index = () => {
                             <button>ACESSAR</button>
                         </Link>
                     </div>
-                    <div className={styles.imgShadow}>
+                    <div className={`${styles.imgShadow} animate__animated animate__fadeIn`}>
                         <div className="lg:hidden">
                             <Slide />
                         </div>
@@ -44,7 +45,7 @@ const Index = () => {
             </div>
             <div className={styles.fullLayout}>
                 <div id="historia" className={styles.historia}>
-                    <h3>A tradição dos sabores</h3>
+                    <h3 className="animate__animated animate__fadeInDown">A tradição dos sabores</h3>
                     <div className={styles.divisor}></div>
                     <div className="hidden lg:block p-5">
                         <p>Conheça mais sobre os quase 40 anos de tradição do Laportes nas redes sociais</p>

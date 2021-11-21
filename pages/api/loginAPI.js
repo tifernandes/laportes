@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { MongoClient, ObjectId } from 'mongodb';
 const jwt = require('jsonwebtoken');
-import cookie from 'cookie';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async function (req, res) {
@@ -11,6 +11,7 @@ export default async function (req, res) {
       const {username, password} = req.body
 
       var message;
+      var accessToken;
 
       try{
         const client = await MongoClient.connect('mongodb+srv://tifernandes:Fer27640329@cluster0.kuspg.mongodb.net/toffee?retryWrites=true&w=majority');
@@ -22,15 +23,8 @@ export default async function (req, res) {
             const user = await userCollenction.findOne({ username })
 
             if (user && user.password === password) {
-                const accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET)
-
-                res.setHeader('Set-Cookie', cookie.serialize('jid', accessToken, {
-                    httpOnly: true,
-                    secure: process.env.NEXT_PUBLIC_WEBSITE == null,
-                    sameSite: 'strict',
-                    path: '/'
-                }))
-                
+                accessToken = jwt.sign({ username }, process.env.ACCESS_TOKEN_SECRET)
+                                
                 message = 'login success';
             } else {
                 message = "Credentials wrong";
@@ -41,7 +35,7 @@ export default async function (req, res) {
         
         client.close();
 
-        res.status(201).json({ message });
+        res.status(201).json({ message, accessToken });
       }catch(e){
         console.log('cardapioApi error: '+ e);
       }
