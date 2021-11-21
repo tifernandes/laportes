@@ -122,6 +122,7 @@
     position: fixed;
     padding: 7px 0;
     top: 100px;
+    z-index: 100;
     background: rgba(0, 0, 0, 0.9);
 }
 

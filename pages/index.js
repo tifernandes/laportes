@@ -45,7 +45,7 @@ const Index = () => {
             </div>
             <div className={styles.fullLayout}>
                 <div id="historia" className={styles.historia}>
-                    <h3 className="animate__animated animate__fadeInDown">A tradição dos sabores</h3>
+                    <h3>A tradição dos sabores</h3>
                     <div className={styles.divisor}></div>
                     <div className="hidden lg:block p-5">
                         <p>Conheça mais sobre os quase 40 anos de tradição do Laportes nas redes sociais</p>

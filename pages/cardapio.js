@@ -174,11 +174,11 @@ const Cardapio = ({ payload }) => {
             :
                 <></>
             }
-            <div className="animate__animated animate__fadeIn">
+            <>
                 {loading ? 
                     <LoadingCmp />
                 :
-                <>
+                <div className="animate__animated animate__fadeIn">
                     {categorias.map((categoria, x) => {
                         return (
                             <div key={x} name={categoria} className={styles.categoria}>
@@ -208,9 +208,9 @@ const Cardapio = ({ payload }) => {
                             </div>
                         )
                     })}
-                </>
+                </div>
                 }
-            </div>
+            </>
         </div>
         </>
     );
