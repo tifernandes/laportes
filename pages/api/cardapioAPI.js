@@ -19,7 +19,7 @@ const allowCors = fn => async (req, res) => {
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-const CardapioAPI = (req, res) => {
+const CardapioAPI = async (req, res) => {
 
     if(req.method === 'POST'){
 
