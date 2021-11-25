@@ -1,8 +1,8 @@
 const AllowCors = fn => async (req, res) => {
     res.setHeader('Access-Control-Allow-Credentials', true)
-    // res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader('Access-Control-Allow-Origin', '*')
     // another common pattern
-    res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br');
+    // res.setHeader('Access-Control-Allow-Origin', process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br');
     res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
     res.setHeader(
       'Access-Control-Allow-Headers',
