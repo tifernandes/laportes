@@ -1,3 +1,1 @@
-Integração email locaweb
-
-  // npm run dev -- -p 3005
+Enviar email ao finalizar pedido

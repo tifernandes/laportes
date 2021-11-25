@@ -29,8 +29,6 @@ const Login = () => {
     <div className={styles.container}>
         <Head>
             <title>Toffee</title>
-            <link rel="icon" href="/favicon.ico" />
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         </Head>
         <div className={styles.subcontainer}>
             <h1>Painel de controle</h1>

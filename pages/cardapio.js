@@ -7,6 +7,7 @@ import { Select,Badge, Drawer, Spin } from 'antd';
 import jump from 'jump.js'
 import Head from 'next/head'
 import AuthContext from '../context/authContext';
+import { Alert } from 'antd';
 
 const { Option } = Select;
 
@@ -145,8 +146,6 @@ const Cardapio = ({ payload }) => {
         <>
         <Head>
             <title>Laportes Restaurantes - Cardápio</title>
-            <link rel="icon" href="/favicon.ico" /> 
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         </Head>
         <Drawer title="" placement="right" contentWrapperStyle={{ maxWidth: '550px', width: '80%' }} onClose={carrinhoShow} visible={showCarrinho}>
             <Carrinho carrinho={cartItems} setShowCarrinho={setShowCarrinho} />
@@ -179,6 +178,9 @@ const Cardapio = ({ payload }) => {
                     <LoadingCmp />
                 :
                 <div className="animate__animated animate__fadeIn">
+                    <div className="mt-5 pl-4 pr-4">
+                        <Alert message="Atenção ! Os pedidos ficam prontos em no minímo 2 dias." type="warning" showIcon closable />
+                    </div>
                     {categorias.map((categoria, x) => {
                         return (
                             <div key={x} name={categoria} className={styles.categoria}>

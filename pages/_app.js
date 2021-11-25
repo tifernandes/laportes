@@ -52,6 +52,8 @@ function MyApp({ Component, pageProps, router }){
               href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
           />
         </Head>
+        <link rel="icon" href="/teste.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
         <LoadingCmp />
     </AuthProvider>
   )

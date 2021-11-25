@@ -21,6 +21,7 @@ const Carrinho = (props) => {
     const [visibleCarrinho, setvisibleCarrinho] = useState({display: 'flex'});
     const [totalCarrinho, setTotalCarrinho] = useState(0);
     const [carrinho, setCarrinho] = useState([]);
+    const [whatsappNumero, setWhatsappNumero] = useState('');
     const [qtItemsCarrinho, setQtItemsCarrinho] = useState([]);
     const [isMobile, setisMobile] = useState(false);
     const [loading, setLoading ] = useState(true);
@@ -39,6 +40,13 @@ const Carrinho = (props) => {
             const resPedidosApi = await axios.get(`/api/pedidosAPI?_id=${pedidoFeito._id}`);
 
             setResumoPedido(resPedidosApi.data);
+
+            if(resPedidosApi.data[0].localretirada == 'scs'){
+                setWhatsappNumero('11997894836');
+            }else if(resPedidosApi.data[0].localretirada == 'sta'){
+                setWhatsappNumero('11930322022');
+            }
+            
 
             setvisibleCarrinho({display: 'none'})
             setVisibleConcluir({display: 'none'})
@@ -84,6 +92,16 @@ const Carrinho = (props) => {
 
     const finalizarPedido = async values => {
 
+        var numeroWhatsApp;
+
+        if(values.localretirada == 'scs'){
+            numeroWhatsApp = '11997894836'
+            setWhatsappNumero(numeroWhatsApp);
+        }else if(values.localretirada == 'sta'){
+            numeroWhatsApp = '11930322022'
+            setWhatsappNumero(numeroWhatsApp);
+        }
+
         carrinho.map((item, i) => {
             const findItem = qtItemsCarrinho.find(x => x.id === item._id).qt;
             item.qt = findItem;
@@ -114,9 +132,9 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
 
         var zapUrl;
         if(isMobile){
-            zapUrl = 'https://api.whatsapp.com/send?phone=5511956104607&text='
+            zapUrl = 'https://api.whatsapp.com/send?phone=55'+numeroWhatsApp+'&text='
         }else{
-            zapUrl = 'https://web.whatsapp.com/send?phone=5511956104607&text='
+            zapUrl = 'https://web.whatsapp.com/send?phone=55'+numeroWhatsApp+'&text='
         }
 
         const url = zapUrl+valueLinkWAPP
@@ -164,9 +182,9 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
 
         var zapUrl;
         if(isMobile){
-            zapUrl = 'https://api.whatsapp.com/send?phone=5511956104607&text='
+            zapUrl = 'https://api.whatsapp.com/send?phone=55'+whatsappNumero+'&text='
         }else{
-            zapUrl = 'https://web.whatsapp.com/send?phone=5511956104607&text='
+            zapUrl = 'https://web.whatsapp.com/send?phone=55'+whatsappNumero+'&text='
         }
 
         const url = zapUrl+valueLinkWAPP
@@ -292,6 +310,17 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                         >
                             <Select defaultValue="retirada no local">
                                 <Option value="retirada no local">Retirada no local</Option>
+                            </Select>
+                        </Form.Item>
+
+                        <Form.Item
+                            label="Local retirada:"
+                            name="localretirada"
+                            valuePropName="option"
+                        >
+                            <Select>
+                                <Option value="scs">Unidade São Caetano do Sul - Rua Pernambuco, 400 - Centro</Option>
+                                <Option value="sta">Unidade Santo André - Rua Vitória Régia, 1419 - Campestre</Option>
                             </Select>
                         </Form.Item>
 

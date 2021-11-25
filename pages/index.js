@@ -3,28 +3,34 @@ import Slide from '../components/Slide'
 import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
-import { Form, Input  } from 'antd';
+import { Alert, Form, Input  } from 'antd';
 import { useState } from 'react'
 import InputMask from 'react-input-mask';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons'
 import 'animate.css'
+import axios from "axios";
 
 const Index = () => {
     
     const [enviado, setEnviado] = useState(false);
 
-    const enviarContato = values => {
-        console.log(values);
-        setEnviado(true);
+    const enviarContato = async values => {
+        
+        const contatoAPI = await axios.post(`/api/contatoAPI`, values);
+
+        if(contatoAPI.data.message == "Success"){
+            setEnviado(true);
+        }else{
+            alert("Erro ao entrar em contato.")
+        }
+        
     }
 
     return(
         <div className={styles.container}>
             <Head>
                 <title>Laportes Restaurantes - Qualidade diferenciada</title>
-                <link rel="icon" href="/favicon.ico" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"></meta>
             </Head>
             <div className={styles.cardapioContainer}>
                 <div className={styles.cardapio}>
@@ -56,7 +62,7 @@ const Index = () => {
                         <Link href="https://www.instagram.com/laportescompany/">
                             <a className={styles.fa} style={{background: '#dd4b39'}} target="_blank"><FontAwesomeIcon icon={faInstagram} /></a>
                         </Link>
-                        <Link href="https://www.instagram.com/laportescompany/">
+                        <Link href="https://www.tiktok.com/@laportescompany">
                             <a className={styles.fa} style={{background: '#2c4762'}} target="_blank"><FontAwesomeIcon icon={faTiktok} /></a>
                         </Link>
                     </div>
