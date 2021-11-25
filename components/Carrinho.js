@@ -37,7 +37,8 @@ const Carrinho = (props) => {
         }
         
         const pedidoApi = async () => {
-            const resPedidosApi = await axios.get(`/api/pedidosAPI?_id=${pedidoFeito._id}`);
+            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+            const resPedidosApi = await axios.get(`${endPoint}/api/pedidosAPI?_id=${pedidoFeito._id}`);
 
             setResumoPedido(resPedidosApi.data);
 
@@ -143,7 +144,9 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
 
         values.data = moment().format();
         values.pedido = carrinho;
-        const resPedidosApi = await axios.post(`/api/pedidosAPI`, values);
+        
+        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+        const resPedidosApi = await axios.post(`${endPoint}/api/pedidosAPI`, values);
 
         if(resPedidosApi.data.message == 'Pedido enviado'){
             localStorage.setItem('didOrder', JSON.stringify({_id: resPedidosApi.data._id}));

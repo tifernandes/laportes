@@ -22,7 +22,8 @@ const Produtos = () => {
 
     useEffect(() => {
         async function getProdutos(){
-            const cardapioApi = await axios.get(`/api/cardapioAPI`);
+            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+            const cardapioApi = await axios.get(`${endPoint}/api/cardapioAPI`);
             var categoria = [];
             var produtos = [];
 
@@ -126,7 +127,8 @@ const Produtos = () => {
     
     const addProduto = async values => {
         values.ativo = true;
-        const addProdutoResponse = await axios.post('/api/cardapioAPI', values)
+        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+        const addProdutoResponse = await axios.post(`${endPoint}/api/cardapioAPI`, values)
 
         if(addProdutoResponse.data.message == 'Produto inserido' || addProdutoResponse.data.message == 'Produto atualizado'){
             setreloadApis(!reloadApis)

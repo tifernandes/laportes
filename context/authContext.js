@@ -25,7 +25,8 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     async function entrar(values){
-        const resultLogin = await axios.post(`/api/loginAPI`, values);
+        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+        const resultLogin = await axios.post(`${endPoint}/api/loginAPI`, values);
         console.log(resultLogin);
 
         if(resultLogin.data.message == 'login success'){
