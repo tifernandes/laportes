@@ -1,10 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { MongoClient, ObjectId } from 'mongodb';
 const jwt = require('jsonwebtoken');
-import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import AllowCors from '../../components/AllowCors'
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default async function (req, res) {
+const LoginAPI = async (req, res) => {
 
     if(req.method === 'POST'){
 
@@ -51,3 +51,5 @@ export default async function (req, res) {
         }
     }
 }
+
+module.exports = AllowCors(LoginAPI)

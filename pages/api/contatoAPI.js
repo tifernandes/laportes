@@ -1,9 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { MongoClient, ObjectId } from 'mongodb';
 const sendEmail = require('../../components/SendEmail');
+import AllowCors from '../../components/AllowCors'
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default async function (req, res) {
+const ContatoAPI = (req, res) => {
 
     if(req.method === 'POST'){
 
@@ -23,3 +24,5 @@ export default async function (req, res) {
       }
     }
 }
+
+module.exports = AllowCors(ContatoAPI)

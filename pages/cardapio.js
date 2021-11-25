@@ -35,7 +35,6 @@ const Cardapio = ({ payload }) => {
 
         async function getProdutos(){
             const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
-            
             const cardapioApi = await axios.get(`${endPoint}/api/cardapioAPI`);
 
             var categoria = [];

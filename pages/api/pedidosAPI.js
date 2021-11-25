@@ -1,8 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { MongoClient, ObjectId } from 'mongodb';
+import AllowCors from '../../components/AllowCors'
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default async function (req, res) {
+const PedidosAPI = async (req, res) => {
 
     if(req.method === 'POST'){
 
@@ -45,3 +46,5 @@ export default async function (req, res) {
       }
   }
 }
+
+module.exports = AllowCors(PedidosAPI)
