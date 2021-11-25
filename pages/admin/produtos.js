@@ -22,7 +22,7 @@ const Produtos = () => {
 
     useEffect(() => {
         async function getProdutos(){
-            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
             const cardapioApi = await axios.get(`${endPoint}/api/cardapioAPI`);
             var categoria = [];
             var produtos = [];
@@ -127,7 +127,7 @@ const Produtos = () => {
     
     const addProduto = async values => {
         values.ativo = true;
-        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
         const addProdutoResponse = await axios.post(`${endPoint}/api/cardapioAPI`, values)
 
         if(addProdutoResponse.data.message == 'Produto inserido' || addProdutoResponse.data.message == 'Produto atualizado'){

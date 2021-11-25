@@ -16,7 +16,7 @@ const Index = () => {
     const [enviado, setEnviado] = useState(false);
 
     const enviarContato = async values => {
-        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
         const contatoAPI = await axios.post(`${endPoint}/api/contatoAPI`, values);
 
         if(contatoAPI.data.message == "Success"){

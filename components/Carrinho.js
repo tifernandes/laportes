@@ -37,7 +37,7 @@ const Carrinho = (props) => {
         }
         
         const pedidoApi = async () => {
-            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+            const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
             const resPedidosApi = await axios.get(`${endPoint}/api/pedidosAPI?_id=${pedidoFeito._id}`);
 
             setResumoPedido(resPedidosApi.data);
@@ -145,7 +145,7 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
         values.data = moment().format();
         values.pedido = carrinho;
         
-        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.com.br';
+        const endPoint = process.env.NEXT_PUBLIC_WEBSITE || 'https://laportes.vercel.app';
         const resPedidosApi = await axios.post(`${endPoint}/api/pedidosAPI`, values);
 
         if(resPedidosApi.data.message == 'Pedido enviado'){
