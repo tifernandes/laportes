@@ -7,7 +7,7 @@ import { Alert, Form, Input  } from 'antd';
 import { useState } from 'react'
 import InputMask from 'react-input-mask';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faFacebookF, faInstagram, faTiktok } from '@fortawesome/free-brands-svg-icons'
+import { faFacebookF, faInstagram, faTiktok, faWhatsapp } from '@fortawesome/free-brands-svg-icons'
 import 'animate.css'
 import axios from "axios";
 
@@ -80,6 +80,7 @@ const Index = () => {
                         <p>Rua Vitória Régia, 1419 - Campestre</p>
                         <p>das 11:30h às 15h</p>
                         <p>(11) 4991-8466</p>
+                        <p><FontAwesomeIcon icon={faWhatsapp} /> (11) 93032-2022</p>
                         <p>*Fechado aos domingos</p>
                     </div>
                     <Image src="/laportes_santoAndre.jpg" width={380} height={280} />
@@ -101,6 +102,7 @@ const Index = () => {
                         <p>Rua Pernambuco, 400 - Centro</p>
                         <p>das 11:30h às 15h</p>
                         <p>(11) 4226-7607</p>
+                        <p><FontAwesomeIcon icon={faWhatsapp} /> (11) 99789-4836</p>
                         <p>*Fechado aos sábados</p>
                     </div>
                     <Image src="/laportes_scs.jpg" width={380} height={280} />
