@@ -27,12 +27,9 @@ const Layout = ({ children }) => {
     const ModalCmp = () => {
         return (
             <Modal title="Prezado Cliente" visible={showModal} footer={null} onCancel={() => setShowModal(false)}>
-                <p>No dia do aniversário, o aniversariante ganha R$50 em sua comanda</p>
+                <p>Estaremos fechados de 24/12 à 03/01</p>
                 <br/>
-                <p>Regras:</p>
-                <p>-Mínimo de seis pessoas na mesa</p>
-                <p>-Apresentação de documento com foto</p>
-                <p>OBS: Sem o documento o desconto não se aplica</p>
+                <p>A equipe Laportes deseja muita Luz e boas festas!</p>
                 <br/>
                 <p>Agradecemos a preferência</p>
             </Modal>

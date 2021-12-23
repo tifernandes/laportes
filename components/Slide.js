@@ -15,8 +15,8 @@ const Slide = () => {
 
   return (
     <Carousel autoplay {...props} className={styles.slide}>
-        <Image src="/know-our-menu.png" width={516} height={387} />
-        <Image src="/laportes_santoAndre.jpg" width={516} height={387} />
+        <img src="/slide1.jpg" />
+        <img src="/slide2.jpg" />
     </Carousel>
   );
 }

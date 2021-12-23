@@ -39,7 +39,7 @@ const Navbar = () => {
 
     const handleScroll = () => {
         const currentScrollPos = window.pageYOffset;
-        const scrolled = currentScrollPos > 90;
+        const scrolled = currentScrollPos >= 90;
         scrolled ? setMenuFixed(true) : setMenuFixed(false)
     };
     
