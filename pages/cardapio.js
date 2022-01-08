@@ -179,7 +179,7 @@ const Cardapio = ({ payload }) => {
                 :
                 <div className="animate__animated animate__fadeIn">
                     <div className="mt-5 pl-4 pr-4">
-                        <Alert message="Atenção ! Os pedidos ficam prontos em no minímo 2 dias." type="warning" showIcon closable />
+                        <Alert message="Atenção ! Os pedidos devem serem feitos com no mínimo 2 dias de antecedência." type="warning" showIcon closable />
                     </div>
                     {categorias.map((categoria, x) => {
                         return (

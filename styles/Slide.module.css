@@ -8,4 +8,5 @@
     max-width: 100% !important;
     max-height: 420px !important;
     height: auto;
+    object-fit: cover;
 }

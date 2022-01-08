@@ -56,7 +56,7 @@ const Index = () => {
                     <div className="hidden lg:block p-5">
                         <p>Conheça mais sobre os quase 40 anos de tradição do Laportes nas redes sociais</p>
                         <br/>
-                        <Link href="https://web.facebook.com/restaurantelaportes">
+                        <Link href="https://www.facebook.com/Laportes-Restaurante-554554051410795">
                             <a className={styles.fa} style={{background: '#3B5998'}} target="_blank"><FontAwesomeIcon icon={faFacebookF} /></a>
                         </Link>
                         <Link href="https://www.instagram.com/laportescompany/">
