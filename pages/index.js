@@ -35,9 +35,9 @@ const Index = () => {
             <div className={styles.cardapioContainer}>
                 <div className={styles.cardapio}>
                     <div className="animate__animated animate__fadeIn">
-                        <h3 className="text-white">A arte da boa cozinha.</h3>
-                        <h1 className="lg:text-9xl">Conheça nosso <br /> cardápio</h1>
-                        <h2 className="text-white text-xl">E Retire seu pedido</h2>
+                        <h3 className="text-white">Self-service por quilo.</h3>
+                        <h1 className="lg:text-9xl">Referência no ABC desde 1982</h1>
+                        <h2 className="text-white text-xl">Acesse nosso menu de encomendas</h2>
                         <Link href="/cardapio">
                             <button>ACESSAR</button>
                         </Link>
@@ -68,7 +68,7 @@ const Index = () => {
                     </div>
                     <div className="lg:hidden">
                         <p>O Laportes foi inaugurado em 1982 em Santo André por Marina Laporte, mulher forte que na época criava suas filhas ainda pequenas - Simone, Solange e Debora - sozinha, por conta da morte prematura do marido. Já no princípio, ainda adolescentes, as meninas começaram a ajudar a mãe. A união e trabalho árduo das quatro logo conquistou clientela cativa formada principalmente por empresários e executivos da região que encontraram ali um ambiente prático e agradável associado à culinária variada e de bom gosto que já se revelava neste início. As refeições sempre foram tipicamente caseiras, trazendo como característica principal a qualidade de pratos produzidos a partir dos melhores ingredientes. Com sabor muito especial, tornaram-se o principal atrativo para quem procurava uma culinária diferenciada na região.</p>
-                        <p>Hoje, ainda sob o comando de todas e já com participação da terceira geração, o restaurante possui duas unidades, localizadas em São Caetano do Sul e Santo André. Com cardápios mais sofisticados do que os de 82, os restaurantes andam com base na experiência destes 34 anos, porém sem abandonar a principal orientação que consolidou seu sucesso: qualidade absoluta. A maturidade das proprietárias propiciou o aprimoramento, somando a prática com a especialização em áreas específicas de administração, gastronomia e higiene, onde cada uma delas visa a criação constante de receitas originais e a preparação de forma muito particular de receitas tradicionais. Aqui todas realizam atividades de criação e administração, orientando diretamente a equipe de funcionários. A equipe é treinada e supervisionada diariamente, em um clima agradável e familiar, que é refletido na rapidez e eficiência no atendimento aos clientes. Este compromisso levado tão a sério transformou o Laportes em uma das principais referências gastronômicas da região do ABC.</p>
+                        <p>Hoje, ainda sob o comando de todas e já com participação da terceira geração, o restaurante possui duas unidades, localizadas em São Caetano do Sul e Santo André. Com cardápios mais sofisticados do que os de 82, os restaurantes andam com base na experiência destes 40 anos, porém sem abandonar a principal orientação que consolidou seu sucesso: qualidade absoluta. A maturidade das proprietárias propiciou o aprimoramento, somando a prática com a especialização em áreas específicas de administração, gastronomia e higiene, onde cada uma delas visa a criação constante de receitas originais e a preparação de forma muito particular de receitas tradicionais. Aqui todas realizam atividades de criação e administração, orientando diretamente a equipe de funcionários. A equipe é treinada e supervisionada diariamente, em um clima agradável e familiar, que é refletido na rapidez e eficiência no atendimento aos clientes. Este compromisso levado tão a sério transformou o Laportes em uma das principais referências gastronômicas da região do ABC.</p>
                         <h3>Ass. Laportes</h3>
                     </div>
                 </div>

@@ -4,6 +4,7 @@ import styles from '../styles/Layout.module.css'
 import { Modal } from 'antd';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
+import Link from 'next/link'
 
 const Layout = ({ children }) => {
 
@@ -27,11 +28,11 @@ const Layout = ({ children }) => {
     const ModalCmp = () => {
         return (
             <Modal title="Prezado Cliente" visible={showModal} footer={null} onCancel={() => setShowModal(false)}>
-                <p>Estaremos fechados de 24/12 à 03/01</p>
+                <p>Para ver mais das nossas unidades e produtos, nos acompanhe no Instagram! </p>
                 <br/>
-                <p>A equipe Laportes deseja muita Luz e boas festas!</p>
-                <br/>
-                <p>Agradecemos a preferência</p>
+                <Link href="https://www.instagram.com/laportescompany/">
+                    <a target="_blank"><p>@laportescompany</p></a>
+                </Link>       
             </Modal>
         )
     }

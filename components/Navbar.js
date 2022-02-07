@@ -76,11 +76,11 @@ const Navbar = () => {
                     }
                 </div>
                 <div className="hidden lg:flex items-center gap-3">
-                    <Image className={styles.logo} src="/logo.png" width={70} height={90} layout="fixed"/>
-                    <h3 className="text-4xl text-white">Laportes</h3>
+                    <Image className={styles.logo} src="/logo.png" width={50} height={60} layout="fixed"/>
+                    <h3 className="text-2xl text-white">Laportes</h3>
                 </div>
                 <div className="hidden lg:block" onClick={mobileMenuShow}>
-                    <div className="border-gray-200 border-opacity-60 text-4xl border cursor-pointer">
+                    <div className="border-gray-200 border-opacity-60 text-2xl border cursor-pointer">
                         <MenuOutlined className="p-2"/>
                     </div>
                 </div>

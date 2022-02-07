@@ -124,13 +124,31 @@ const Cardapio = ({ payload }) => {
 
     const CategoriaCmp = () => {
         return (
-            <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
-                {categorias.map((categoria, x) => {
-                    return (
-                        <Option key={x} value={categoria}>{categoria}</Option>
-                    )
-                })}
-            </Select>
+            // <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+            //     {categorias.map((categoria, x) => {
+            //         return (
+            //             <Option key={x} value={categoria}>{categoria}</Option>
+            //         )
+            //     })}
+            // </Select>
+            <div className={styles.containerCategoria}>
+                <div className={styles.mobileSlide}>
+                    {categorias.map((categoria, x) => {
+                        return (
+                            <div className={styles.categoriaItem} key={x} onClick={() => handleSelect(categoria)}>{categoria}</div>
+                        )
+                    })}
+                </div>
+                <div className={styles.desktopSelect}>
+                    <Select onChange={handleSelect} defaultValue="Selecione um tipo de produto..." style={{ width: '100%' }}>
+                        {categorias.map((categoria, x) => {
+                            return (
+                                <Option key={x} value={categoria}>{categoria}</Option>
+                            )
+                        })}
+                    </Select>
+                </div>
+          </div>
         )
     }
 
