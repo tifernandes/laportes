@@ -227,6 +227,8 @@ const Produtos = () => {
 
     const pesquisarHandle = value => {
 
+        console.log(value)
+
         var produtosFilter = [];
 
         if(typeof value === 'string'){
@@ -248,6 +250,8 @@ const Produtos = () => {
                 }
             });
         }
+
+        console.log(produtosFilter)
 
         setProdutos(produtosFilter);
     }
@@ -296,7 +300,7 @@ const Produtos = () => {
         </div>
         <Table 
         dataSource={produtos} 
-        rowKey="id"
+        rowKey="_id"
         columns={columns} 
         pagination={false}
         className="tableSinais"

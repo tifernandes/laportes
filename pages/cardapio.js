@@ -40,6 +40,7 @@ const Cardapio = ({ payload }) => {
             var categoria = [];
             var produtos = [];
 
+            console.log(cardapioApi.data[0]);
             cardapioApi.data[0].map((data, x) => {
                 data.values.map((prd, x) => {
                     produtos.push(prd);
@@ -51,6 +52,8 @@ const Cardapio = ({ payload }) => {
 
             let categoriasUnicas = [...new Set(categoria)];
 
+            console.log(produtos)
+            console.log(categoriasUnicas)
             setCategorias(categoriasUnicas.sort());
             setProdutos(produtos);
 
@@ -89,7 +92,7 @@ const Cardapio = ({ payload }) => {
             }else{
                 carrinho.push({"id": prdID, "qt": 1});
             }
-
+            console.log(carrinho)
             localStorage.setItem('prdcrtLaportes', JSON.stringify(carrinho));
             setCart(carrinho)
         }else{
