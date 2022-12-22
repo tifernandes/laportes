@@ -109,15 +109,13 @@ const Carrinho = (props) => {
         })
 
         setResumoPedido([{values, pedido: carrinho}])
-
+        // *Total:* R$ ${totalCarrinho}
 const pedidoWhats = 
 `*Novo pedido solicitado:*
 ---------------------------------------
 
 ${carrinho.map((cr, x) => `*${cr.qt}x ${cr.nome}* \n`).join('')}
 ${values.obs ? `_Obs: ${values.obs}_` : ``}
-        
-*Total:* R$ ${totalCarrinho}
         
 ---------------------------------------
         
@@ -234,17 +232,18 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                                             <MinusOutlined onClick={() => handleQT('minus', item._id)} className="cursor-pointer" />
                                         </div>
                                         <h2 className={styles.nomeProduto}>{item.nome}</h2>
-                                        <h2>R$ {item.valor}</h2>
+                                        {/* R$ */}
+                                        <h2>{item.valor}</h2>
                                     </div>
                                 )
                             })
                             }
                         </div>
                         <div>
-                            <div className="flex justify-between text-xl">
+                            {/* <div className="flex justify-between text-xl">
                                 <h1>Total</h1>
                                 <h1>R$ {totalCarrinho}</h1>
-                            </div>
+                            </div> */}
                             <button onClick={() => fazerPedidoShow('Concluir')}>Fazer Pedido</button>
                         </div>
                     </>
@@ -336,10 +335,10 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                     </div>
                     
                     <div>
-                        <div className="flex justify-between text-xl mt-5">
+                        {/* <div className="flex justify-between text-xl mt-5">
                             <h1>Total</h1>
                             <h1>R$ {totalCarrinho}</h1>
-                        </div>
+                        </div> */}
                         <Form.Item>
                             <button>Finalizar Pedido</button>
                         </Form.Item>
@@ -371,10 +370,10 @@ _Pedido gerado pelo Laportes.com.br às ${moment().format('LT')}_
                                         </div>
                                     )
                                 })}
-                                <div className={styles.resumoPedido}>
+                                {/* <div className={styles.resumoPedido}>
                                     <p>Total</p>
                                     <p>R${totalCarrinho}</p>
-                                </div>
+                                </div> */}
                             </Panel>
                         </Collapse>
                         <p>Teve problemas para enviar seu pedido para o WhatsApp?</p>

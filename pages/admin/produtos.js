@@ -94,8 +94,9 @@ const Produtos = () => {
         dataIndex: 'valor',
         key: 'valor',
         render: d => {
-            return (<>R$ {d}</>)
-        }
+            // R$
+            return (<>{d}</>)
+        } 
     },
     {
         title: 'Descrição',

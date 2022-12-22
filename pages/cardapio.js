@@ -43,6 +43,9 @@ const Cardapio = ({ payload }) => {
             console.log(cardapioApi.data[0]);
             cardapioApi.data[0].map((data, x) => {
                 data.values.map((prd, x) => {
+                    console.log('titi');
+                    console.log(prd)
+                    prd.valor = "A Consultar"
                     produtos.push(prd);
                 })
                 data.key.map((ct, y) => {
@@ -214,7 +217,8 @@ const Cardapio = ({ payload }) => {
                                                     <div className={styles.info}>
                                                         <h1 className="text-xl">{prd.nome}</h1>
                                                         <p className="text-md">{prd.descricao}</p>
-                                                        <h2>R$ {prd.valor}</h2>
+                                                        {/* R$ */}
+                                                        <h2>{prd.valor}</h2>
                                                     </div>
                                                     <div className={styles.actions}>
                                                         {cart.findIndex(x => x.id == prd._id) > -1 ? 
